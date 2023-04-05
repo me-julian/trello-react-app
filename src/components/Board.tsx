@@ -12,9 +12,9 @@ function Board({ id, boardName, lanes, onEditBoardName }: Props) {
     return (
         <>
             <header>
-                <h1 data-db-id={id}>{boardName}</h1>
+                <h1>{boardName}</h1>
             </header>
-            <main>
+            <main id="board" data-db-id={id}>
                 {lanes?.map((lane) => (
                     <Lane />
                 ))}

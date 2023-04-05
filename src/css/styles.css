@@ -91,12 +91,12 @@ input {
     font-size: 13px;
 }
 
-.add-new > i {
+.add-new > svg {
     font-size: 22px;
     padding: 1rem;
 }
 
-.add-new > i:hover {
+.add-new > svg:hover {
     cursor: pointer;
 }
 
@@ -111,7 +111,7 @@ input {
     font-weight: 500;
 }
 
-.lane .add-new > i {
+.lane .add-new > svg {
     font-size: 16px;
     padding: 0.5rem;
 }
@@ -124,11 +124,11 @@ input {
     padding: 0.5rem 1rem 0.25rem 1rem;
 }
 
-.editing-buttons i:hover {
+.editing-buttons svg:hover {
     cursor: pointer;
 }
 
-.editing-buttons > div > i {
+.editing-buttons > div > svg {
     padding: 0 0.5rem;
 }
 
