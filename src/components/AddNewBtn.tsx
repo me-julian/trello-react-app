@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { useState, useRef } from 'react'
+import { CSSTransition } from 'react-transition-group'
 
 const AddNewBtn = () => {
     const [adding, setAdding] = useState(false)
+    const formRef = useRef(null)
 
     function handleAdding() {
         setAdding(!adding)
@@ -11,11 +13,20 @@ const AddNewBtn = () => {
 
     return (
         <div id="add-lane-btn" className="add-new round">
-            <form className={adding ? 'visible' : 'hidden'}>
-                <input placeholder="Name your lane" type="text" />
-            </form>
+            <CSSTransition
+                nodeRef={formRef}
+                in={adding}
+                timeout={200}
+                classNames="toggle-form"
+                unmountOnExit
+            >
+                <form ref={formRef}>
+                    <input placeholder="Name your lane" type="text" autoFocus />
+                </form>
+            </CSSTransition>
             <FontAwesomeIcon
-                icon={adding ? faTimes : faPlus}
+                className={adding ? 'turn' : ''}
+                icon={faPlus}
                 size="sm"
                 onClick={handleAdding}
             />
