@@ -1,0 +1,191 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+header > h1 {
+    display: inline-block;
+    margin: 1rem 1.5rem;
+    cursor: pointer;
+}
+
+header > form {
+    margin: 0px;
+}
+
+header > form > input {
+    display: inline-block;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 1rem 1.5rem;
+    padding: 0px;
+}
+
+main {
+    min-height: calc(100vh - 75px);
+}
+
+input {
+    border: none;
+    margin-bottom: 3px;
+}
+
+#board {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#board > div {
+    margin: 0 0.5rem;
+}
+
+.round {
+    border-radius: 6px;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    max-width: 0;
+    max-height: 0;
+}
+
+.hidden * {
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.visible {
+    visibility: visible;
+    opacity: 1;
+    max-width: 1000px;
+    max-height: 1000px;
+}
+
+/* Add buttons */
+.add-new {
+    display: block;
+    background-color: #294c6099;
+    font-size: 0;
+    align-self: start;
+}
+
+#board > .add-new {
+    white-space: nowrap;
+}
+
+#board > .add-new input {
+    margin: 1rem;
+}
+
+.add-new > form {
+    display: inline-block;
+    border: none;
+    transition: all 0.2s;
+    vertical-align: top;
+}
+
+.add-new input {
+    transition: all 0.2s;
+    font-size: 13px;
+}
+
+.add-new > i {
+    font-size: 22px;
+    padding: 1rem;
+}
+
+.add-new > i:hover {
+    cursor: pointer;
+}
+
+.lane form {
+    display: block;
+}
+
+.lane-head input {
+    padding: 0.25rem 0.5rem 0.25rem;
+    margin: 0rem 0.5rem 0.25rem;
+    background-color: #e0e0e0;
+    font-weight: 500;
+}
+
+.lane .add-new > i {
+    font-size: 16px;
+    padding: 0.5rem;
+}
+
+/* Lane buttons */
+.editing-buttons {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: 0.5rem 1rem 0.25rem 1rem;
+}
+
+.editing-buttons i:hover {
+    cursor: pointer;
+}
+
+.editing-buttons > div > i {
+    padding: 0 0.5rem;
+}
+
+.lane {
+    background-color: #e0e0e0;
+    width: 225px;
+    flex-shrink: 0;
+}
+
+.lane-head > p {
+    font-weight: 500;
+    padding: 0.25rem 1rem 0.5rem;
+}
+
+.lane > .add-new {
+    background-color: #294c6040;
+    margin: 0.35rem 0.5rem;
+}
+
+.lane > .add-new input {
+    margin: 0 0.35rem 0.35rem 0.35rem;
+}
+
+.card {
+    background-color: #ffffff;
+    margin: 0 0.5rem 0.35rem 0.5rem;
+    border-bottom: 2px solid #0000004d;
+    border-right: 1px solid #0000004d;
+}
+
+.card > .editing-buttons {
+    font-size: 14px;
+}
+
+.card-head > p {
+    padding: 0.25rem 1rem 0.25rem;
+}
+
+.card-body > p {
+    font-size: 14px;
+    padding: 0.25rem 1rem 0.5rem 1.5rem;
+}
+
+.card input {
+    padding: 0.25rem 0rem 0.25rem 0.75rem;
+    margin-left: 0.25rem;
+    border-bottom: 1px solid #0000004d;
+}
+
+.card form input:last-child {
+    font-size: 14px;
+    padding: 0.25rem 0.75rem 0.5rem 0.75rem;
+    margin-left: 0.5rem;
+}
+
+footer {
+    width: 100%;
+    height: 100px;
+    background: paleturquoise;
+}
