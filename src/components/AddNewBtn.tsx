@@ -10,8 +10,15 @@ const AddNewBtn = () => {
     }
 
     return (
-        <div id="add-lane-btn" className="add-new round" onClick={handleAdding}>
-            <FontAwesomeIcon icon={adding ? faTimes : faPlus} size="sm" />
+        <div id="add-lane-btn" className="add-new round">
+            <form className={adding ? 'visible' : 'hidden'}>
+                <input placeholder="Name your lane" type="text" />
+            </form>
+            <FontAwesomeIcon
+                icon={adding ? faTimes : faPlus}
+                size="sm"
+                onClick={handleAdding}
+            />
         </div>
     )
 }
