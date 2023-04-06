@@ -47,7 +47,7 @@ input {
 .toggle-form-enter {
     visibility: hidden;
     opacity: 0;
-    max-width: 0px;
+    max-width: 100px;
     max-height: 0px;
 }
 
@@ -56,36 +56,20 @@ input {
     opacity: 1;
     max-width: 1000px;
     max-height: 1000px;
-    transition: all 0.2s ease-in;
-}
-
-.toggle-form-enter-done {
-    visibility: visible;
-    opacity: 1;
-    max-width: 1000px;
-    max-height: 1000px;
+    transition: all 0.2s;
 }
 
 .toggle-form-exit {
-    visibility: hidden;
     opacity: 1;
     max-width: 1000px;
     max-height: 1000px;
 }
 
 .toggle-form-exit-active {
-    visibility: hidden;
     opacity: 0;
-    max-width: 0;
-    max-height: 0;
+    max-width: 0px;
+    max-height: 0px;
     transition: all 0.2s;
-}
-
-.toggle-form-exit-done {
-    visibility: hidden;
-    opacity: 0;
-    max-width: 0;
-    max-height: 0;
 }
 
 /* Add buttons */
