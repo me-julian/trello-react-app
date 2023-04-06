@@ -43,15 +43,15 @@ input {
     border-radius: 6px;
 }
 
-/* Form transition classes used with react-transition-group */
-.toggle-form-enter {
+/* Add new form transition classes used with react-transition-group */
+.toggle-add-new-enter {
     visibility: hidden;
     opacity: 0;
     max-width: 100px;
     max-height: 0px;
 }
 
-.toggle-form-enter-active {
+.toggle-add-new-enter-active {
     visibility: visible;
     opacity: 1;
     max-width: 1000px;
@@ -59,13 +59,13 @@ input {
     transition: all 0.2s;
 }
 
-.toggle-form-exit {
+.toggle-add-new-exit {
     opacity: 1;
     max-width: 1000px;
     max-height: 1000px;
 }
 
-.toggle-form-exit-active {
+.toggle-add-new-exit-active {
     opacity: 0;
     max-width: 0px;
     max-height: 0px;

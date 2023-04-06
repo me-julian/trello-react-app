@@ -17,7 +17,7 @@ const AddNewBtn = () => {
                 nodeRef={formRef}
                 in={adding}
                 timeout={200}
-                classNames="toggle-form"
+                classNames="toggle-add-new"
                 unmountOnExit
             >
                 <form ref={formRef}>
