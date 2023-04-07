@@ -135,6 +135,11 @@ input {
     flex-flow: row nowrap;
     justify-content: space-between;
     padding: 0.5rem 1rem 0.25rem 1rem;
+    line-height: 0;
+}
+
+.editing-buttons svg {
+    vertical-align: top !important;
 }
 
 .editing-buttons svg:hover {
@@ -149,6 +154,7 @@ input {
     background-color: #e0e0e0;
     width: 225px;
     flex-shrink: 0;
+    height: fit-content;
 }
 
 .lane-head > p {
