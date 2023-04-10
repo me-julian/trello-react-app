@@ -13,13 +13,13 @@ function Board({ id, boardName, lanes, onEditBoardName }: Props) {
     function handleAddNewLane(e: React.BaseSyntheticEvent) {
         e.preventDefault()
 
-        // When are hooks recalled, the reactive values.
-        // Loading page from big data call, only making small changes
-        // and notifying API about it. Unless, say, we change
-        // large size things like board id (reactive value, state)
-        // to re-render with a new big data call?
-
         const laneName = e.target['lane-name'].value
+        if (laneName.trim() === '') {
+            alert('Please add a name for the lane.')
+        } else {
+            // Post to API
+            console.log(laneName)
+        }
     }
 
     return (
