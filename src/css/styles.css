@@ -12,7 +12,7 @@ header > form {
     margin: 0px;
 }
 
-header > form > input {
+header > form input {
     display: inline-block;
     font-size: 32px;
     font-weight: 700;

@@ -4,7 +4,9 @@ import BoardType from '../types/Board'
 
 export default function useLoadBoard(): {
     data: BoardType | null
+    setData: Function
     error: null | Error
+    setError: Function
 } {
     const [cookies, setCookie, removeCookie] = useCookies()
     const [data, setData] = useState(null)
@@ -104,5 +106,5 @@ export default function useLoadBoard(): {
             abortController.abort()
         }
     }, [])
-    return { data, error }
+    return { data, setData, error, setError }
 }
