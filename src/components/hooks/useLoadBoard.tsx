@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
+import { useCookies } from 'react-cookie'
+import BoardType from '../types/Board'
 
-export default function useLoadBoard<ReturnType>(
-    cookiedId: string,
-    reactives: Array<string>
-): {
-    data: ReturnType | null
+export default function useLoadBoard(): {
+    data: BoardType | null
     error: null | Error
 } {
+    const [cookies, setCookie, removeCookie] = useCookies()
     const [data, setData] = useState(null)
     const [error, setError] = useState<null | Error>(null)
 
@@ -25,8 +25,11 @@ export default function useLoadBoard<ReturnType>(
                     const data = await response.json()
                     setData(data)
                     setError(null)
+                    if (cookies.lastBoardId !== data.id) {
+                        setCookie('lastBoardId', data.id, { maxAge: 86400 })
+                    }
                 } else if (response.status === 404) {
-                    console.warn('Board not found, creating new.')
+                    console.warn('Board not found in DB')
                     postAndGet()
                 }
             } catch (err: any) {
@@ -82,23 +85,24 @@ export default function useLoadBoard<ReturnType>(
             }
         }
 
-        if (cookiedId) {
-            const url = new URL(`http://localhost:5000/boards/${cookiedId}`)
+        if (cookies.lastBoardId) {
             console.log('Attempting to get cookied board')
 
-            tryGet(url, {
-                options: { method: 'GET' },
-                signal: abortController.signal,
-            })
+            tryGet(
+                new URL(`http://localhost:5000/boards/${cookies.lastBoardId}`),
+                {
+                    options: { method: 'GET' },
+                    signal: abortController.signal,
+                }
+            )
         } else {
             console.log(`No cookied board, creating default`)
             postAndGet()
         }
 
         return () => {
-            console.log('Abort fetch')
             abortController.abort()
         }
-    }, [...reactives])
+    }, [])
     return { data, error }
 }

@@ -1,14 +1,10 @@
 import './css/styles.css'
 import './css/reset.css'
-import { BoardType } from './components/types'
 import Board from './components/Board'
-import { useCookies } from 'react-cookie'
 import useLoadBoard from './components/hooks/useLoadBoard'
 
 function App() {
-    const [cookies, setCookie, removeCookie] = useCookies()
-
-    const { data, error } = useLoadBoard<BoardType>(cookies.lastBoardId, [])
+    const { data, error } = useLoadBoard()
 
     const handleEditBoardName = () => {}
 
@@ -21,10 +17,6 @@ function App() {
     }
 
     console.log('render board')
-    if (cookies.lastBoardId !== data.id) {
-        setCookie('lastBoardId', data.id, { maxAge: 86400 })
-    }
-
     return (
         <>
             <Board
