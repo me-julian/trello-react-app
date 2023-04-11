@@ -1,4 +1,4 @@
-import CardType from './types/Card'
+import { CardType } from './types'
 import Card from './Card'
 import { AddNewBtn } from './buttons'
 

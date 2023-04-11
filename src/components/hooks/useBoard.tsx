@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { BoardType } from '../types'
+import { useState } from 'react'
 
 function useBoard(data: BoardType | null, setData: Function) {
     const [editingBoard, setEditingBoard] = useState(false)

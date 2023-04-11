@@ -1,7 +1,6 @@
 import Lanes from './Lanes'
 import { LaneType } from './types'
-import AddNewBtn from './buttons/AddNewBtn'
-import { useState } from 'react'
+import { AddNewBtn } from './buttons'
 
 interface Props {
     id: string

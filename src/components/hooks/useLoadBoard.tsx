@@ -1,6 +1,6 @@
+import { BoardType } from '../types'
 import { useState, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
-import BoardType from '../types/Board'
 
 export default function useLoadBoard(): {
     data: BoardType | null
