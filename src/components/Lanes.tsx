@@ -1,5 +1,5 @@
 import Lane from './Lane'
-import LaneType from './types/Lane'
+import { LaneType } from './types'
 
 interface Props {
     lanes: Array<LaneType>

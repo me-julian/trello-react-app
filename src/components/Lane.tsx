@@ -1,5 +1,4 @@
-import type LaneType from './types/Lane'
-import type CardType from './types/Card'
+import type { CardType, LaneType } from './types'
 import Cards from './Cards'
 import { DeleteBtn, EditBtn, MoveBtn } from './buttons'
 

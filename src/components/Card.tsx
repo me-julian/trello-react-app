@@ -1,4 +1,4 @@
-import CardType from './types/Card'
+import { CardType } from './types'
 import { DeleteBtn, EditBtn, MoveBtn } from './buttons'
 
 interface Props {

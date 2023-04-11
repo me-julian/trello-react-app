@@ -1,21 +1,11 @@
+import { FetchParams } from '../types'
 import { useState, useEffect } from 'react'
-
-interface Params {
-    url: URL
-    options: {
-        method: 'POST' | 'GET' | 'PATCH' | 'DELETE'
-        headers?: HeadersInit
-        body?: BodyInit
-    }
-    // Reactive values in url for useEffect to track
-    ids: Array<string>
-}
 
 export default function useFetch<ReturnType>({
     url,
     options,
-    ids,
-}: Params): ReturnType | null {
+    reactives,
+}: FetchParams): ReturnType | null {
     console.log(`Fetching data on url ${url}`)
 
     const [data, setData] = useState(null)
@@ -24,11 +14,11 @@ export default function useFetch<ReturnType>({
         let ignore = false
 
         async function fetchData() {
-            const response = await fetch(url, options)
-
-            const data = await response.json()
-
             if (!ignore) {
+                const response = await fetch(url, options)
+                console.log('awaiting')
+
+                const data = await response.json()
                 console.log(data)
                 setData(data)
             }
@@ -40,6 +30,6 @@ export default function useFetch<ReturnType>({
             console.log('ignore')
             ignore = true
         }
-    }, [...ids])
+    }, [...reactives])
     return data
 }
