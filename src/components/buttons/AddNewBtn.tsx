@@ -4,16 +4,18 @@ import { useState, useRef, FormEvent } from 'react'
 import { CSSTransition } from 'react-transition-group'
 
 interface Props {
-    onSubmit: (event: FormEvent) => void
+    handlers: {
+        adding: boolean
+        onAdding: () => void
+        onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
+        onSubmit: (e: React.BaseSyntheticEvent) => void
+    }
 }
 
-const AddNewBtn = ({ onSubmit }: Props) => {
-    const [adding, setAdding] = useState(false)
+const AddNewBtn = ({
+    handlers: { adding, onAdding, onSubmit, onTyping },
+}: Props) => {
     const formRef = useRef(null)
-
-    function handleAdding() {
-        setAdding(!adding)
-    }
 
     return (
         <div id="add-lane-btn" className="add-new round">
@@ -31,6 +33,7 @@ const AddNewBtn = ({ onSubmit }: Props) => {
                             placeholder="Name your lane"
                             type="text"
                             autoFocus
+                            onChange={onTyping}
                         />
                     </label>
                 </form>
@@ -39,7 +42,7 @@ const AddNewBtn = ({ onSubmit }: Props) => {
                 className={adding ? 'turn' : ''}
                 icon={faPlus}
                 size="sm"
-                onClick={handleAdding}
+                onClick={onAdding}
             />
         </div>
     )

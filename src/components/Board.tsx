@@ -6,11 +6,27 @@ interface Props {
     id: string
     boardName: string
     lanes: Array<LaneType>
-    boardHandlers: {
-        editing: boolean
+    handlers: {
+        editingBoard: boolean
         onStartEditing: () => void
         onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
         onEditBoardName: (e: React.BaseSyntheticEvent) => void
+    }
+    addLaneHandlers: {
+        adding: boolean
+        onAdding: () => void
+        onSubmit: (e: React.BaseSyntheticEvent) => void
+        onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
+    }
+    addCardHandlers: {
+        adding: boolean
+        onAdding: () => void
+        onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
+        onSubmit: (e: React.BaseSyntheticEvent) => void
+    }
+    laneHandlers: {
+        editingLane: boolean
+        onStartEditing: () => void
     }
 }
 
@@ -18,25 +34,15 @@ function Board({
     id,
     boardName,
     lanes,
-    boardHandlers: { editing, onStartEditing, onTyping, onEditBoardName },
+    handlers: { editingBoard, onStartEditing, onTyping, onEditBoardName },
+    addLaneHandlers,
+    addCardHandlers,
+    laneHandlers,
 }: Props) {
-    function handleAddNewLane(e: React.BaseSyntheticEvent) {
-        // -- Needs to be lifted --
-        e.preventDefault()
-
-        // const laneName = e.target['lane-name'].value
-        // if (laneName.trim() === '') {
-        //     alert('Lane must have a name.')
-        // } else {
-        //     // Post to API
-        //     console.log(laneName)
-        // }
-    }
-
     return (
         <>
             <header>
-                {editing && (
+                {editingBoard && (
                     <form onSubmit={onEditBoardName}>
                         <label>
                             <input
@@ -49,11 +55,15 @@ function Board({
                         </label>
                     </form>
                 )}
-                {!editing && <h1 onClick={onStartEditing}>{boardName}</h1>}
+                {!editingBoard && <h1 onClick={onStartEditing}>{boardName}</h1>}
             </header>
             <main id="board" data-db-id={id}>
-                <Lanes lanes={lanes} />
-                <AddNewBtn onSubmit={handleAddNewLane} />
+                <Lanes
+                    lanes={lanes}
+                    laneHandlers={laneHandlers}
+                    addCardHandlers={addCardHandlers}
+                />
+                <AddNewBtn handlers={addLaneHandlers} />
             </main>
         </>
     )

@@ -4,9 +4,15 @@ import { AddNewBtn } from './buttons'
 
 interface Props {
     cards: Array<CardType>
+    addCardHandlers: {
+        adding: boolean
+        onAdding: () => void
+        onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
+        onSubmit: (e: React.BaseSyntheticEvent) => void
+    }
 }
 
-function Cards({ cards }: Props) {
+function Cards({ cards, addCardHandlers }: Props) {
     return (
         <>
             <div className="card-container round">
@@ -14,11 +20,7 @@ function Cards({ cards }: Props) {
                     <Card key={card.id} card={card} />
                 ))}
             </div>
-            <AddNewBtn
-                onSubmit={() => {
-                    return null
-                }}
-            />
+            <AddNewBtn handlers={addCardHandlers} />
         </>
     )
 }

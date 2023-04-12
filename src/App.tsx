@@ -1,22 +1,63 @@
 import './css/styles.css'
 import './css/reset.css'
 import Board from './components/Board'
-import { useLoadBoard, useBoard } from './components/hooks'
+import {
+    useLoadBoard,
+    useBoard,
+    useLane,
+    useLaneAdder,
+    useCardAdder,
+} from './components/hooks'
 
 function App() {
-    const { data, setData, error, setError } = useLoadBoard()
+    const { data, setData, setStale, error, setError } = useLoadBoard()
     const {
         editingBoard,
-        handleStartEditing,
-        handleTyping,
+        handleStartEditingBoard,
+        handleTypingBoard,
         handleEditBoardName,
     } = useBoard(data, setData)
 
     const boardHandlers = {
-        editing: editingBoard,
-        onStartEditing: handleStartEditing,
-        onTyping: handleTyping,
+        editingBoard,
+        onStartEditing: handleStartEditingBoard,
+        onTyping: handleTypingBoard,
         onEditBoardName: handleEditBoardName,
+    }
+
+    const {
+        addingLane,
+        handleAddingLane,
+        handleAddNewLane,
+        handleTypingNewLane,
+    } = useLaneAdder(data, setStale)
+
+    const addLaneHandlers = {
+        adding: addingLane,
+        onAdding: handleAddingLane,
+        onSubmit: handleAddNewLane,
+        onTyping: handleTypingNewLane,
+    }
+
+    const {
+        addingCard,
+        handleAddingCard,
+        handleAddNewCard,
+        handleTypingNewCard,
+    } = useCardAdder(data, setStale)
+
+    const addCardHandlers = {
+        adding: addingCard,
+        onAdding: handleAddingCard,
+        onSubmit: handleAddNewCard,
+        onTyping: handleTypingNewCard,
+    }
+
+    const { editingLane, handleStartEditingLane } = useLane(data, setData)
+
+    const laneHandlers = {
+        editingLane,
+        onStartEditing: handleStartEditingLane,
     }
 
     if (!data) {
@@ -34,7 +75,10 @@ function App() {
                 id={data.id}
                 boardName={data.boardName}
                 lanes={data.lanes}
-                boardHandlers={boardHandlers}
+                handlers={boardHandlers}
+                addLaneHandlers={addLaneHandlers}
+                addCardHandlers={addCardHandlers}
+                laneHandlers={laneHandlers}
             />
         </>
     )

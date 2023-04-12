@@ -4,11 +4,11 @@ import { useState } from 'react'
 function useBoard(data: BoardType | null, setData: Function) {
     const [editingBoard, setEditingBoard] = useState(false)
 
-    function handleStartEditing() {
+    function handleStartEditingBoard() {
         setEditingBoard(true)
     }
 
-    function handleTyping(e: React.ChangeEvent<HTMLInputElement>) {
+    function handleTypingBoard(e: React.ChangeEvent<HTMLInputElement>) {
         setData({ ...data, boardName: e.target.value })
     }
 
@@ -55,8 +55,8 @@ function useBoard(data: BoardType | null, setData: Function) {
 
     return {
         editingBoard,
-        handleStartEditing,
-        handleTyping,
+        handleStartEditingBoard,
+        handleTypingBoard,
         handleEditBoardName,
     }
 }

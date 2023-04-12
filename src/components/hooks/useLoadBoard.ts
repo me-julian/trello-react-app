@@ -5,11 +5,13 @@ import { useCookies } from 'react-cookie'
 export default function useLoadBoard(): {
     data: BoardType | null
     setData: Function
+    setStale: Function
     error: null | Error
     setError: Function
 } {
     const [cookies, setCookie, removeCookie] = useCookies()
     const [data, setData] = useState(null)
+    const [stale, setStale] = useState(false)
     const [error, setError] = useState<null | Error>(null)
 
     useEffect(() => {
@@ -105,6 +107,6 @@ export default function useLoadBoard(): {
         return () => {
             abortController.abort()
         }
-    }, [])
-    return { data, setData, error, setError }
+    }, [stale])
+    return { data, setData, setStale, error, setError }
 }
