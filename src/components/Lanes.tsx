@@ -5,13 +5,13 @@ interface Props {
     lanes: Array<LaneType>
     addCardHandlers: {
         adding: boolean
-        onAdding: () => void
+        onToggleAdding: (e: React.BaseSyntheticEvent) => void
         onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
         onSubmit: (e: React.BaseSyntheticEvent) => void
     }
     laneHandlers: {
         editingLane: boolean
-        onStartEditing: () => void
+        onToggleEditing: (e: React.BaseSyntheticEvent) => void
     }
 }
 

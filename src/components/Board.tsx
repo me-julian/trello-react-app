@@ -8,25 +8,25 @@ interface Props {
     lanes: Array<LaneType>
     handlers: {
         editingBoard: boolean
-        onStartEditing: () => void
+        onToggleEditing: (e: React.BaseSyntheticEvent) => void
         onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
         onEditBoardName: (e: React.BaseSyntheticEvent) => void
     }
     addLaneHandlers: {
         adding: boolean
-        onAdding: () => void
+        onToggleAdding: (e: React.BaseSyntheticEvent) => void
         onSubmit: (e: React.BaseSyntheticEvent) => void
         onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
     }
     addCardHandlers: {
         adding: boolean
-        onAdding: () => void
+        onToggleAdding: (e: React.BaseSyntheticEvent) => void
         onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
         onSubmit: (e: React.BaseSyntheticEvent) => void
     }
     laneHandlers: {
         editingLane: boolean
-        onStartEditing: () => void
+        onToggleEditing: (e: React.BaseSyntheticEvent) => void
     }
 }
 
@@ -34,7 +34,7 @@ function Board({
     id,
     boardName,
     lanes,
-    handlers: { editingBoard, onStartEditing, onTyping, onEditBoardName },
+    handlers: { editingBoard, onToggleEditing, onTyping, onEditBoardName },
     addLaneHandlers,
     addCardHandlers,
     laneHandlers,
@@ -43,7 +43,10 @@ function Board({
         <>
             <header>
                 {editingBoard && (
-                    <form onSubmit={onEditBoardName}>
+                    <form
+                        onSubmit={onEditBoardName}
+                        onKeyDown={onToggleEditing}
+                    >
                         <label>
                             <input
                                 name="board-name"
@@ -55,7 +58,9 @@ function Board({
                         </label>
                     </form>
                 )}
-                {!editingBoard && <h1 onClick={onStartEditing}>{boardName}</h1>}
+                {!editingBoard && (
+                    <h1 onClick={onToggleEditing}>{boardName}</h1>
+                )}
             </header>
             <main id="board" data-db-id={id}>
                 <Lanes

@@ -1,16 +1,20 @@
 import { BoardType } from '../types'
-import { useState } from 'react'
+import { BaseSyntheticEvent, useState } from 'react'
 
-function useLane(data: BoardType | null, setData: Function) {
+function useLane(data: BoardType | null, setStale: Function) {
     const [editingLane, setEditingLane] = useState(false)
 
-    function handleStartEditingLane() {
-        setEditingLane(true)
+    function handleToggleEditingLane(e: BaseSyntheticEvent) {
+        if ('key' in e && e.key === 'Escape') {
+            setEditingLane(!editingLane)
+        } else if (e.type === 'click') {
+            setEditingLane(!editingLane)
+        }
     }
 
     return {
         editingLane,
-        handleStartEditingLane,
+        handleToggleEditingLane,
     }
 }
 

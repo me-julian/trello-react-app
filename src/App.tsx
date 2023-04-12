@@ -13,28 +13,28 @@ function App() {
     const { data, setData, setStale, error, setError } = useLoadBoard()
     const {
         editingBoard,
-        handleStartEditingBoard,
+        handleToggleEditingBoard,
         handleTypingBoard,
         handleEditBoardName,
     } = useBoard(data, setData)
 
     const boardHandlers = {
         editingBoard,
-        onStartEditing: handleStartEditingBoard,
+        onToggleEditing: handleToggleEditingBoard,
         onTyping: handleTypingBoard,
         onEditBoardName: handleEditBoardName,
     }
 
     const {
         addingLane,
-        handleAddingLane,
+        handleToggleAddingLane,
         handleAddNewLane,
         handleTypingNewLane,
     } = useLaneAdder(data, setStale)
 
     const addLaneHandlers = {
         adding: addingLane,
-        onAdding: handleAddingLane,
+        onToggleAdding: handleToggleAddingLane,
         onSubmit: handleAddNewLane,
         onTyping: handleTypingNewLane,
     }
@@ -48,16 +48,16 @@ function App() {
 
     const addCardHandlers = {
         adding: addingCard,
-        onAdding: handleAddingCard,
+        onToggleAdding: handleAddingCard,
         onSubmit: handleAddNewCard,
         onTyping: handleTypingNewCard,
     }
 
-    const { editingLane, handleStartEditingLane } = useLane(data, setData)
+    const { editingLane, handleToggleEditingLane } = useLane(data, setStale)
 
     const laneHandlers = {
         editingLane,
-        onStartEditing: handleStartEditingLane,
+        onToggleEditing: handleToggleEditingLane,
     }
 
     if (!data) {

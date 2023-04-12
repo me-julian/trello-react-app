@@ -5,8 +5,12 @@ function useCardAdder(boardData: BoardType | null, setStale: Function) {
     const [addingCard, setAddingCard] = useState(false)
     const [addInput, setAddInput] = useState('')
 
-    function handleAddingCard() {
-        setAddingCard(true)
+    function handleAddingCard(e: React.BaseSyntheticEvent) {
+        if ('key' in e && e.key === 'Escape') {
+            setAddingCard(!addingCard)
+        } else if (e.type === 'click') {
+            setAddingCard(!addingCard)
+        }
     }
 
     function handleTypingNewCard(e: React.ChangeEvent<HTMLInputElement>) {

@@ -6,14 +6,14 @@ import { CSSTransition } from 'react-transition-group'
 interface Props {
     handlers: {
         adding: boolean
-        onAdding: () => void
+        onToggleAdding: (e: React.BaseSyntheticEvent) => void
         onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
         onSubmit: (e: React.BaseSyntheticEvent) => void
     }
 }
 
 const AddNewBtn = ({
-    handlers: { adding, onAdding, onSubmit, onTyping },
+    handlers: { adding, onToggleAdding, onSubmit, onTyping },
 }: Props) => {
     const formRef = useRef(null)
 
@@ -26,7 +26,11 @@ const AddNewBtn = ({
                 classNames="toggle-add-new"
                 unmountOnExit
             >
-                <form ref={formRef} onSubmit={onSubmit}>
+                <form
+                    ref={formRef}
+                    onSubmit={onSubmit}
+                    onKeyDown={onToggleAdding}
+                >
                     <label>
                         <input
                             name="lane-name"
@@ -42,7 +46,7 @@ const AddNewBtn = ({
                 className={adding ? 'turn' : ''}
                 icon={faPlus}
                 size="sm"
-                onClick={onAdding}
+                onClick={onToggleAdding}
             />
         </div>
     )

@@ -5,8 +5,12 @@ function useLaneAdder(boardData: BoardType | null, setStale: Function) {
     const [addingLane, setAddingLane] = useState(false)
     const [addInput, setAddInput] = useState('')
 
-    function handleAddingLane() {
-        setAddingLane(true)
+    function handleToggleAddingLane(e: React.BaseSyntheticEvent) {
+        if ('key' in e && e.key === 'Escape') {
+            setAddingLane(!addingLane)
+        } else if (e.type === 'click') {
+            setAddingLane(!addingLane)
+        }
     }
 
     function handleTypingNewLane(e: React.ChangeEvent<HTMLInputElement>) {
@@ -58,7 +62,7 @@ function useLaneAdder(boardData: BoardType | null, setStale: Function) {
 
     return {
         addingLane,
-        handleAddingLane,
+        handleToggleAddingLane,
         handleTypingNewLane,
         handleAddNewLane,
         postNewLane,

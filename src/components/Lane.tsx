@@ -6,11 +6,11 @@ interface Props {
     lane: LaneType
     handlers: {
         editingLane: boolean
-        onStartEditing: () => void
+        onToggleEditing: (e: React.BaseSyntheticEvent) => void
     }
     addCardHandlers: {
         adding: boolean
-        onAdding: () => void
+        onToggleAdding: (e: React.BaseSyntheticEvent) => void
         onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
         onSubmit: (e: React.BaseSyntheticEvent) => void
     }
@@ -18,7 +18,7 @@ interface Props {
 
 const Lane = ({
     lane: { id, laneName, cards, sequence },
-    handlers: { editingLane, onStartEditing },
+    handlers: { editingLane, onToggleEditing },
     addCardHandlers,
 }: Props) => {
     return (

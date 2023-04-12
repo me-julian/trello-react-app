@@ -4,8 +4,12 @@ import { useState } from 'react'
 function useBoard(data: BoardType | null, setData: Function) {
     const [editingBoard, setEditingBoard] = useState(false)
 
-    function handleStartEditingBoard() {
-        setEditingBoard(true)
+    function handleToggleEditingBoard(e: React.BaseSyntheticEvent) {
+        if ('key' in e && e.key === 'Escape') {
+            setEditingBoard(!editingBoard)
+        } else if (e.type === 'click') {
+            setEditingBoard(!editingBoard)
+        }
     }
 
     function handleTypingBoard(e: React.ChangeEvent<HTMLInputElement>) {
@@ -55,7 +59,7 @@ function useBoard(data: BoardType | null, setData: Function) {
 
     return {
         editingBoard,
-        handleStartEditingBoard,
+        handleToggleEditingBoard,
         handleTypingBoard,
         handleEditBoardName,
     }
