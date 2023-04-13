@@ -16,6 +16,11 @@ interface Props {
             id: string,
             currName: string
         ) => void
+        onMoveLane: (
+            e: React.BaseSyntheticEvent,
+            id: string,
+            type: string
+        ) => void
         onDeleteLane: (e: React.BaseSyntheticEvent, id: string) => void
     }
 }
@@ -27,6 +32,8 @@ function Lanes({ lanes, addCardHandlers, laneHandlers }: Props) {
                 <Lane
                     key={lane.id}
                     index={index}
+                    leftEnd={index === 0}
+                    rightEnd={index === lanes.length - 1}
                     lane={lane}
                     handlers={laneHandlers}
                     addCardHandlers={addCardHandlers}

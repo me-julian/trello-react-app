@@ -60,6 +60,39 @@ function useLane(data: BoardType | null, setStale: Function) {
         })
     }
 
+    async function handleMoveLane(
+        e: React.BaseSyntheticEvent,
+        id: string,
+        type: string
+    ) {
+        let sequenceShift
+        switch (type) {
+            case 'left':
+                sequenceShift = -1
+                break
+            case 'right':
+                sequenceShift = 1
+                break
+        }
+
+        const response = await fetch(
+            `http://localhost:5000/boards/${data?.id}/lanes/${id}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ sequenceShift: sequenceShift }),
+            }
+        )
+
+        if (response.ok) {
+            setStale(true)
+        } else {
+            console.error('Failed to move lane in DB.')
+        }
+    }
+
     async function handleDeleteLane(e: React.BaseSyntheticEvent, id: string) {
         const msg = 'Are you sure you want to delete this lane?'
         if (confirm(msg)) {
@@ -82,6 +115,7 @@ function useLane(data: BoardType | null, setStale: Function) {
         editing: editingLane,
         onToggleEditing: handleToggleEditingLane,
         onEditLaneName: handleEditLaneName,
+        onMoveLane: handleMoveLane,
         onDeleteLane: handleDeleteLane,
     }
 }

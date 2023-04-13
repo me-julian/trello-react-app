@@ -3,17 +3,16 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
     onClick: (e: React.BaseSyntheticEvent, id: string) => void
-    id: string
+    parentId: string
 }
 
-function DeleteBtn({ onClick, id }: Props) {
-    // Custom hook to return icon and functs?
+function DeleteBtn({ onClick, parentId }: Props) {
     return (
         <>
             <FontAwesomeIcon
                 icon={faTrashAlt}
                 size="sm"
-                onClick={(e) => onClick(e, id)}
+                onClick={(e) => onClick(e, parentId)}
             />
         </>
     )

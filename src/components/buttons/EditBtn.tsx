@@ -7,7 +7,6 @@ interface Props {
 }
 
 function EditBtn({ onClick, index }: Props) {
-    // Custom hook to return icon and functs?
     return (
         <>
             <FontAwesomeIcon

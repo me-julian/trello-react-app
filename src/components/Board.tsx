@@ -34,6 +34,11 @@ interface Props {
             id: string,
             currName: string
         ) => void
+        onMoveLane: (
+            e: React.BaseSyntheticEvent,
+            id: string,
+            type: string
+        ) => void
         onDeleteLane: (e: React.BaseSyntheticEvent, id: string) => void
     }
 }

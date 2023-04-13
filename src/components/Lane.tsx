@@ -5,6 +5,8 @@ import { useTemporaryValue } from './hooks'
 
 interface Props {
     index: number
+    leftEnd: boolean
+    rightEnd: boolean
     lane: LaneType
     handlers: {
         editing: null | number
@@ -13,6 +15,11 @@ interface Props {
             e: React.BaseSyntheticEvent,
             id: string,
             currName: string
+        ) => void
+        onMoveLane: (
+            e: React.BaseSyntheticEvent,
+            id: string,
+            type: string
         ) => void
         onDeleteLane: (e: React.BaseSyntheticEvent, id: string) => void
     }
@@ -25,8 +32,16 @@ interface Props {
 
 const Lane = ({
     index,
+    leftEnd,
+    rightEnd,
     lane: { id, laneName, cards, sequence },
-    handlers: { editing, onToggleEditing, onEditLaneName, onDeleteLane },
+    handlers: {
+        editing,
+        onToggleEditing,
+        onEditLaneName,
+        onMoveLane,
+        onDeleteLane,
+    },
     addCardHandlers,
 }: Props) => {
     const [tempName, setTempName] = useTemporaryValue(laneName, editing)
@@ -34,12 +49,22 @@ const Lane = ({
     return (
         <div className="lane round" id={id}>
             <div className="editing-buttons">
-                <MoveBtn />
+                <MoveBtn
+                    iconType="left"
+                    onClick={onMoveLane}
+                    parentId={id}
+                    active={leftEnd}
+                />
                 <div>
                     <EditBtn onClick={onToggleEditing} index={index} />
-                    <DeleteBtn onClick={onDeleteLane} id={id} />
+                    <DeleteBtn onClick={onDeleteLane} parentId={id} />
                 </div>
-                <MoveBtn />
+                <MoveBtn
+                    iconType="right"
+                    onClick={onMoveLane}
+                    parentId={id}
+                    active={rightEnd}
+                />
             </div>
             <div className="lane-head">
                 {editing === index ? (
