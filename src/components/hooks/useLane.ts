@@ -12,15 +12,21 @@ function useLane(data: BoardType | null, setStale: Function) {
         }
     }
 
-    async function handleEditLaneName(e: React.BaseSyntheticEvent, id: string) {
+    async function handleEditLaneName(
+        e: React.BaseSyntheticEvent,
+        id: string,
+        currName: string
+    ) {
         e.preventDefault()
 
-        const laneName = e.target['lane-name'].value
-        if (laneName.trim() === '') {
+        const newName = e.target['lane-name'].value
+        if (newName === currName) {
+            setEditingLane(null)
+        } else if (newName.trim() === '') {
             alert('Lane must have a name.')
         } else {
             try {
-                await postLaneName(data?.id, id, laneName)
+                await postLaneName(data?.id, id, newName)
                 setStale(true)
                 setEditingLane(null)
             } catch {

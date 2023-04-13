@@ -10,7 +10,11 @@ interface Props {
     handlers: {
         editing: boolean
         onToggleEditing: (e: React.BaseSyntheticEvent) => void
-        onEditBoardName: (e: React.BaseSyntheticEvent) => void
+        onEditBoardName: (
+            e: React.BaseSyntheticEvent,
+            id: string,
+            currName: string
+        ) => void
     }
     addLaneHandlers: {
         adding: boolean
@@ -25,7 +29,11 @@ interface Props {
     laneHandlers: {
         editing: null | number
         onToggleEditing: (e: React.BaseSyntheticEvent, index: number) => void
-        onEditLaneName: (e: React.BaseSyntheticEvent, id: string) => void
+        onEditLaneName: (
+            e: React.BaseSyntheticEvent,
+            id: string,
+            currName: string
+        ) => void
     }
 }
 
@@ -45,7 +53,7 @@ function Board({
             <header>
                 {editing && (
                     <form
-                        onSubmit={onEditBoardName}
+                        onSubmit={(e) => onEditBoardName(e, id, boardName)}
                         onKeyDown={onToggleEditing}
                     >
                         <label>

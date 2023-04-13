@@ -12,16 +12,22 @@ function useBoard(data: BoardType | null, setData: Function) {
         }
     }
 
-    async function handleEditBoardName(e: React.BaseSyntheticEvent) {
+    async function handleEditBoardName(
+        e: React.BaseSyntheticEvent,
+        id: string,
+        currName: string
+    ) {
         e.preventDefault()
 
-        const boardName = e.target['board-name'].value
-        if (boardName.trim() === '') {
+        const newName = e.target['board-name'].value
+        if (newName === currName) {
+            setEditingBoard(false)
+        } else if (newName.trim() === '') {
             alert('Board must have a name.')
         } else {
             try {
-                await postBoardName(data?.id, boardName)
-                setData({ ...data, boardName: boardName })
+                await postBoardName(id, newName)
+                setData({ ...data, boardName: newName })
                 setEditingBoard(false)
             } catch {
                 console.error('Failed to update board name in DB.')
@@ -30,7 +36,7 @@ function useBoard(data: BoardType | null, setData: Function) {
     }
 
     function postBoardName(
-        boardId: string | undefined,
+        boardId: string,
         boardName: string
     ): Promise<Response> {
         return new Promise(async (resolve, reject) => {
