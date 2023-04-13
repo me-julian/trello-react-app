@@ -61,11 +61,10 @@ function useLaneAdder(boardData: BoardType | null, setStale: Function) {
     }
 
     return {
-        addingLane,
-        handleToggleAddingLane,
-        handleTypingNewLane,
-        handleAddNewLane,
-        postNewLane,
+        adding: addingLane,
+        onToggleAdding: handleToggleAddingLane,
+        onSubmit: handleAddNewLane,
+        onTyping: handleTypingNewLane,
     }
 }
 

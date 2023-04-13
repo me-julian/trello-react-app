@@ -11,54 +11,14 @@ import {
 
 function App() {
     const { data, setData, setStale, error, setError } = useLoadBoard()
-    const {
-        editingBoard,
-        handleToggleEditingBoard,
-        handleTypingBoard,
-        handleEditBoardName,
-    } = useBoard(data, setData)
 
-    const boardHandlers = {
-        editingBoard,
-        onToggleEditing: handleToggleEditingBoard,
-        onTyping: handleTypingBoard,
-        onEditBoardName: handleEditBoardName,
-    }
+    const boardHandlers = useBoard(data, setData)
 
-    const {
-        addingLane,
-        handleToggleAddingLane,
-        handleAddNewLane,
-        handleTypingNewLane,
-    } = useLaneAdder(data, setStale)
+    const addLaneHandlers = useLaneAdder(data, setStale)
 
-    const addLaneHandlers = {
-        adding: addingLane,
-        onToggleAdding: handleToggleAddingLane,
-        onSubmit: handleAddNewLane,
-        onTyping: handleTypingNewLane,
-    }
+    const addCardHandlers = useCardAdder(data, setStale)
 
-    const {
-        addingCard,
-        handleAddingCard,
-        handleAddNewCard,
-        handleTypingNewCard,
-    } = useCardAdder(data, setStale)
-
-    const addCardHandlers = {
-        adding: addingCard,
-        onToggleAdding: handleAddingCard,
-        onSubmit: handleAddNewCard,
-        onTyping: handleTypingNewCard,
-    }
-
-    const { editingLane, handleToggleEditingLane } = useLane(data, setStale)
-
-    const laneHandlers = {
-        editingLane,
-        onToggleEditing: handleToggleEditingLane,
-    }
+    const laneHandlers = useLane(data, setStale)
 
     if (!data) {
         return <h1>Loading...</h1>

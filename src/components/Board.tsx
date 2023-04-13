@@ -7,7 +7,7 @@ interface Props {
     boardName: string
     lanes: Array<LaneType>
     handlers: {
-        editingBoard: boolean
+        editing: boolean
         onToggleEditing: (e: React.BaseSyntheticEvent) => void
         onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
         onEditBoardName: (e: React.BaseSyntheticEvent) => void
@@ -25,7 +25,7 @@ interface Props {
         onSubmit: (e: React.BaseSyntheticEvent) => void
     }
     laneHandlers: {
-        editingLane: boolean
+        editing: boolean
         onToggleEditing: (e: React.BaseSyntheticEvent) => void
     }
 }
@@ -34,7 +34,7 @@ function Board({
     id,
     boardName,
     lanes,
-    handlers: { editingBoard, onToggleEditing, onTyping, onEditBoardName },
+    handlers: { editing, onToggleEditing, onTyping, onEditBoardName },
     addLaneHandlers,
     addCardHandlers,
     laneHandlers,
@@ -42,7 +42,7 @@ function Board({
     return (
         <>
             <header>
-                {editingBoard && (
+                {editing && (
                     <form
                         onSubmit={onEditBoardName}
                         onKeyDown={onToggleEditing}
@@ -58,9 +58,7 @@ function Board({
                         </label>
                     </form>
                 )}
-                {!editingBoard && (
-                    <h1 onClick={onToggleEditing}>{boardName}</h1>
-                )}
+                {!editing && <h1 onClick={onToggleEditing}>{boardName}</h1>}
             </header>
             <main id="board" data-db-id={id}>
                 <Lanes

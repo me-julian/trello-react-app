@@ -58,10 +58,10 @@ function useBoard(data: BoardType | null, setData: Function) {
     }
 
     return {
-        editingBoard,
-        handleToggleEditingBoard,
-        handleTypingBoard,
-        handleEditBoardName,
+        editing: editingBoard,
+        onToggleEditing: handleToggleEditingBoard,
+        onTyping: handleTypingBoard,
+        onEditBoardName: handleEditBoardName,
     }
 }
 

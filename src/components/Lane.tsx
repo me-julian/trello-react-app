@@ -5,7 +5,7 @@ import { DeleteBtn, EditBtn, MoveBtn } from './buttons'
 interface Props {
     lane: LaneType
     handlers: {
-        editingLane: boolean
+        editing: boolean
         onToggleEditing: (e: React.BaseSyntheticEvent) => void
     }
     addCardHandlers: {
@@ -18,7 +18,7 @@ interface Props {
 
 const Lane = ({
     lane: { id, laneName, cards, sequence },
-    handlers: { editingLane, onToggleEditing },
+    handlers: { editing, onToggleEditing },
     addCardHandlers,
 }: Props) => {
     return (

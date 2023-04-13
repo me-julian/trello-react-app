@@ -60,11 +60,10 @@ function useCardAdder(boardData: BoardType | null, setStale: Function) {
     }
 
     return {
-        addingCard,
-        handleAddingCard,
-        handleTypingNewCard,
-        handleAddNewCard,
-        postNewCard,
+        adding: addingCard,
+        onToggleAdding: handleAddingCard,
+        onSubmit: handleAddNewCard,
+        onTyping: handleTypingNewCard,
     }
 }
 

@@ -13,8 +13,8 @@ function useLane(data: BoardType | null, setStale: Function) {
     }
 
     return {
-        editingLane,
-        handleToggleEditingLane,
+        editing: editingLane,
+        onToggleEditing: handleToggleEditingLane,
     }
 }
 
