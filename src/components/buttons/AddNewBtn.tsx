@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useState, useRef, FormEvent } from 'react'
+import { useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
 
 interface Props {
