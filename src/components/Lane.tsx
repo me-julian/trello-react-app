@@ -1,4 +1,4 @@
-import type { LaneType } from './types'
+import type { AddCardHandlerProps, LaneHandlerProps, LaneType } from './types'
 import Cards from './Cards'
 import { DeleteBtn, EditBtn, MoveBtn } from './buttons'
 import { useTemporaryValue } from './hooks'
@@ -8,26 +8,8 @@ interface Props {
     leftEnd: boolean
     rightEnd: boolean
     lane: LaneType
-    handlers: {
-        editing: null | number
-        onToggleEditing: (e: React.BaseSyntheticEvent, index: number) => void
-        onEditLaneName: (
-            e: React.BaseSyntheticEvent,
-            id: string,
-            currName: string
-        ) => void
-        onMoveLane: (
-            e: React.BaseSyntheticEvent,
-            id: string,
-            type: string
-        ) => void
-        onDeleteLane: (e: React.BaseSyntheticEvent, id: string) => void
-    }
-    addCardHandlers: {
-        adding: boolean
-        onToggleAdding: (e: React.BaseSyntheticEvent) => void
-        onSubmit: (e: React.BaseSyntheticEvent) => void
-    }
+    handlers: LaneHandlerProps
+    addCardHandlers: AddCardHandlerProps
 }
 
 const Lane = ({

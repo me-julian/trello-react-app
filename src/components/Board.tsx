@@ -1,4 +1,10 @@
-import { LaneType } from './types'
+import {
+    AddCardHandlerProps,
+    AddLaneHandlerProps,
+    BoardHandlerProps,
+    LaneHandlerProps,
+    LaneType,
+} from './types'
 import Lanes from './Lanes'
 import { AddNewBtn } from './buttons'
 import { useTemporaryValue } from './hooks'
@@ -7,40 +13,10 @@ interface Props {
     id: string
     boardName: string
     lanes: Array<LaneType>
-    handlers: {
-        editing: boolean
-        onToggleEditing: (e: React.BaseSyntheticEvent) => void
-        onEditBoardName: (
-            e: React.BaseSyntheticEvent,
-            id: string,
-            currName: string
-        ) => void
-    }
-    addLaneHandlers: {
-        adding: boolean
-        onToggleAdding: (e: React.BaseSyntheticEvent) => void
-        onSubmit: (e: React.BaseSyntheticEvent) => void
-    }
-    addCardHandlers: {
-        adding: boolean
-        onToggleAdding: (e: React.BaseSyntheticEvent) => void
-        onSubmit: (e: React.BaseSyntheticEvent) => void
-    }
-    laneHandlers: {
-        editing: null | number
-        onToggleEditing: (e: React.BaseSyntheticEvent, index: number) => void
-        onEditLaneName: (
-            e: React.BaseSyntheticEvent,
-            id: string,
-            currName: string
-        ) => void
-        onMoveLane: (
-            e: React.BaseSyntheticEvent,
-            id: string,
-            type: string
-        ) => void
-        onDeleteLane: (e: React.BaseSyntheticEvent, id: string) => void
-    }
+    handlers: BoardHandlerProps
+    addLaneHandlers: AddLaneHandlerProps
+    addCardHandlers: AddCardHandlerProps
+    laneHandlers: LaneHandlerProps
 }
 
 function Board({

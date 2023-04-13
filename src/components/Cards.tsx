@@ -1,14 +1,10 @@
-import { CardType } from './types'
+import { AddCardHandlerProps, CardType } from './types'
 import Card from './Card'
 import { AddNewBtn } from './buttons'
 
 interface Props {
     cards: Array<CardType>
-    addCardHandlers: {
-        adding: boolean
-        onToggleAdding: (e: React.BaseSyntheticEvent) => void
-        onSubmit: (e: React.BaseSyntheticEvent) => void
-    }
+    addCardHandlers: AddCardHandlerProps
 }
 
 function Cards({ cards, addCardHandlers }: Props) {

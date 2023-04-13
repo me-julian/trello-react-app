@@ -1,28 +1,10 @@
-import { LaneType } from './types'
+import { AddCardHandlerProps, LaneHandlerProps, LaneType } from './types'
 import Lane from './Lane'
 
 interface Props {
     lanes: Array<LaneType>
-    addCardHandlers: {
-        adding: boolean
-        onToggleAdding: (e: React.BaseSyntheticEvent) => void
-        onSubmit: (e: React.BaseSyntheticEvent) => void
-    }
-    laneHandlers: {
-        editing: null | number
-        onToggleEditing: (e: React.BaseSyntheticEvent, index: number) => void
-        onEditLaneName: (
-            e: React.BaseSyntheticEvent,
-            id: string,
-            currName: string
-        ) => void
-        onMoveLane: (
-            e: React.BaseSyntheticEvent,
-            id: string,
-            type: string
-        ) => void
-        onDeleteLane: (e: React.BaseSyntheticEvent, id: string) => void
-    }
+    addCardHandlers: AddCardHandlerProps
+    laneHandlers: LaneHandlerProps
 }
 
 function Lanes({ lanes, addCardHandlers, laneHandlers }: Props) {

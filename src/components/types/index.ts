@@ -1,3 +1,7 @@
 export type { default as BoardType } from './Board'
 export type { default as CardType } from './Card'
 export type { default as LaneType } from './Lane'
+export type { default as BoardHandlerProps } from './handlerProps/BoardHandlerProps'
+export type { default as AddLaneHandlerProps } from './handlerProps/AddLaneHandlerProps'
+export type { default as AddCardHandlerProps } from './handlerProps/AddCardHandlerProps'
+export type { default as LaneHandlerProps } from './handlerProps/LaneHandlerProps'
