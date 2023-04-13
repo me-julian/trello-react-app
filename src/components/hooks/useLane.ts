@@ -37,7 +37,7 @@ function useLane(data: BoardType | null, setStale: Function) {
 
     function postLaneName(
         boardId: string | undefined,
-        laneId: string | undefined,
+        laneId: string,
         laneName: string
     ): Promise<Response> {
         return new Promise(async (resolve, reject) => {
@@ -60,10 +60,29 @@ function useLane(data: BoardType | null, setStale: Function) {
         })
     }
 
+    async function handleDeleteLane(e: React.BaseSyntheticEvent, id: string) {
+        const msg = 'Are you sure you want to delete this lane?'
+        if (confirm(msg)) {
+            const response = await fetch(
+                `http://localhost:5000/boards/${data?.id}/lanes/${id}`,
+                {
+                    method: 'DELETE',
+                }
+            )
+
+            if (response.ok) {
+                setStale(true)
+            } else {
+                console.error('Failed to delete lane from DB.')
+            }
+        }
+    }
+
     return {
         editing: editingLane,
         onToggleEditing: handleToggleEditingLane,
         onEditLaneName: handleEditLaneName,
+        onDeleteLane: handleDeleteLane,
     }
 }
 

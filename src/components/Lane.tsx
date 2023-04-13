@@ -14,6 +14,7 @@ interface Props {
             id: string,
             currName: string
         ) => void
+        onDeleteLane: (e: React.BaseSyntheticEvent, id: string) => void
     }
     addCardHandlers: {
         adding: boolean
@@ -25,7 +26,7 @@ interface Props {
 const Lane = ({
     index,
     lane: { id, laneName, cards, sequence },
-    handlers: { editing, onToggleEditing, onEditLaneName },
+    handlers: { editing, onToggleEditing, onEditLaneName, onDeleteLane },
     addCardHandlers,
 }: Props) => {
     const [tempName, setTempName] = useTemporaryValue(laneName, editing)
@@ -35,12 +36,8 @@ const Lane = ({
             <div className="editing-buttons">
                 <MoveBtn />
                 <div>
-                    <EditBtn
-                        onClick={(e: React.BaseSyntheticEvent) =>
-                            onToggleEditing(e, index)
-                        }
-                    />
-                    <DeleteBtn />
+                    <EditBtn onClick={onToggleEditing} index={index} />
+                    <DeleteBtn onClick={onDeleteLane} id={id} />
                 </div>
                 <MoveBtn />
             </div>
