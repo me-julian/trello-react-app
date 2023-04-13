@@ -28,6 +28,7 @@ export default function useLoadBoard(): {
                 if (response.ok) {
                     const data = await response.json()
                     setData(data)
+                    setStale(false)
                     setError(null)
                     if (cookies.lastBoardId !== data.id) {
                         setCookie('lastBoardId', data.id, { maxAge: 86400 })
