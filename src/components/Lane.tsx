@@ -1,12 +1,15 @@
-import type { CardType, LaneType } from './types'
+import type { LaneType } from './types'
 import Cards from './Cards'
 import { DeleteBtn, EditBtn, MoveBtn } from './buttons'
+import { useState, useEffect } from 'react'
 
 interface Props {
+    index: number
     lane: LaneType
     handlers: {
-        editing: boolean
-        onToggleEditing: (e: React.BaseSyntheticEvent) => void
+        editing: null | number
+        onToggleEditing: (e: React.BaseSyntheticEvent, index: number) => void
+        onEditLaneName: (e: React.BaseSyntheticEvent) => void
     }
     addCardHandlers: {
         adding: boolean
@@ -17,23 +20,52 @@ interface Props {
 }
 
 const Lane = ({
+    index,
     lane: { id, laneName, cards, sequence },
-    handlers: { editing, onToggleEditing },
+    handlers: { editing, onToggleEditing, onEditLaneName },
     addCardHandlers,
 }: Props) => {
+    const [tempName, setTempName] = useState(laneName)
+    useEffect(() => {
+        setTempName(laneName)
+    }, [editing])
+
     return (
         <div className="lane round" id={id}>
             <div className="editing-buttons">
                 <MoveBtn />
                 <div>
-                    <EditBtn />
+                    <EditBtn
+                        onClick={(e: React.BaseSyntheticEvent) =>
+                            onToggleEditing(e, index)
+                        }
+                    />
                     <DeleteBtn />
                 </div>
                 <MoveBtn />
             </div>
             <div className="lane-head">
-                <p>{laneName}</p>
+                {editing === index ? (
+                    <form
+                        onSubmit={onEditLaneName}
+                        onKeyDown={(e) => onToggleEditing(e, index)}
+                    >
+                        <label>
+                            <input
+                                name="lane-name"
+                                type="text"
+                                placeholder={laneName}
+                                value={tempName}
+                                onChange={(e) => setTempName(e.target.value)}
+                                autoFocus
+                            />
+                        </label>
+                    </form>
+                ) : (
+                    <p>{laneName}</p>
+                )}
             </div>
+
             <Cards cards={cards} addCardHandlers={addCardHandlers} />
         </div>
     )

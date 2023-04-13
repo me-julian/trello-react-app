@@ -10,17 +10,19 @@ interface Props {
         onSubmit: (e: React.BaseSyntheticEvent) => void
     }
     laneHandlers: {
-        editing: boolean
-        onToggleEditing: (e: React.BaseSyntheticEvent) => void
+        editing: null | number
+        onToggleEditing: (e: React.BaseSyntheticEvent, index: number) => void
+        onEditLaneName: (e: React.BaseSyntheticEvent) => void
     }
 }
 
 function Lanes({ lanes, addCardHandlers, laneHandlers }: Props) {
     return (
         <>
-            {lanes.map((lane) => (
+            {lanes.map((lane, index) => (
                 <Lane
                     key={lane.id}
+                    index={index}
                     lane={lane}
                     handlers={laneHandlers}
                     addCardHandlers={addCardHandlers}

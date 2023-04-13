@@ -14,6 +14,7 @@ function App() {
 
     const boardHandlers = useBoard(data, setData)
 
+    // Adding multiple lanes in a row bugged
     const addLaneHandlers = useLaneAdder(data, setStale)
 
     const addCardHandlers = useCardAdder(data, setStale)
