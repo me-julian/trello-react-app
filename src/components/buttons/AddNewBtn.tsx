@@ -1,21 +1,23 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useRef } from 'react'
+import { useTemporaryValue } from '../hooks'
 import { CSSTransition } from 'react-transition-group'
 
 interface Props {
     handlers: {
         adding: boolean
         onToggleAdding: (e: React.BaseSyntheticEvent) => void
-        onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
         onSubmit: (e: React.BaseSyntheticEvent) => void
     }
 }
 
 const AddNewBtn = ({
-    handlers: { adding, onToggleAdding, onSubmit, onTyping },
+    handlers: { adding, onToggleAdding, onSubmit },
 }: Props) => {
     const formRef = useRef(null)
+
+    const [tempName, setTempName] = useTemporaryValue('', adding)
 
     return (
         <div id="add-lane-btn" className="add-new round">
@@ -35,9 +37,10 @@ const AddNewBtn = ({
                         <input
                             name="lane-name"
                             placeholder="Name your lane"
+                            value={tempName}
                             type="text"
                             autoFocus
-                            onChange={onTyping}
+                            onChange={(e) => setTempName(e.target.value)}
                         />
                     </label>
                 </form>

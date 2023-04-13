@@ -3,7 +3,6 @@ import { useState } from 'react'
 
 function useLaneAdder(boardData: BoardType | null, setStale: Function) {
     const [addingLane, setAddingLane] = useState(false)
-    const [addInput, setAddInput] = useState('')
 
     function handleToggleAddingLane(e: React.BaseSyntheticEvent) {
         if ('key' in e && e.key === 'Escape') {
@@ -11,10 +10,6 @@ function useLaneAdder(boardData: BoardType | null, setStale: Function) {
         } else if (e.type === 'click') {
             setAddingLane(!addingLane)
         }
-    }
-
-    function handleTypingNewLane(e: React.ChangeEvent<HTMLInputElement>) {
-        setAddInput(e.target.value)
     }
 
     async function handleAddNewLane(e: React.BaseSyntheticEvent) {
@@ -28,7 +23,6 @@ function useLaneAdder(boardData: BoardType | null, setStale: Function) {
                 await postNewLane(boardData?.id, laneName)
 
                 setStale(true)
-                setAddInput('')
                 setAddingLane(false)
             } catch {
                 console.error('Failed to add new lane to DB.')
@@ -64,7 +58,6 @@ function useLaneAdder(boardData: BoardType | null, setStale: Function) {
         adding: addingLane,
         onToggleAdding: handleToggleAddingLane,
         onSubmit: handleAddNewLane,
-        onTyping: handleTypingNewLane,
     }
 }
 

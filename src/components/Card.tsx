@@ -8,7 +8,7 @@ interface Props {
 function Card({ card: { id, cardName, cardDescr, sequence } }: Props) {
     return (
         <div id={id} className="card round">
-            <div className="editing-buttons">
+            {/* <div className="editing-buttons">
                 <MoveBtn />
                 <MoveBtn />
                 <div>
@@ -23,7 +23,7 @@ function Card({ card: { id, cardName, cardDescr, sequence } }: Props) {
             </div>
             <div className="card-body">
                 <p>{cardDescr}</p>
-            </div>
+            </div> */}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import type { LaneType } from './types'
 import Cards from './Cards'
 import { DeleteBtn, EditBtn, MoveBtn } from './buttons'
-import { useState, useEffect } from 'react'
+import { useTemporaryValue } from './hooks'
 
 interface Props {
     index: number
@@ -14,7 +14,6 @@ interface Props {
     addCardHandlers: {
         adding: boolean
         onToggleAdding: (e: React.BaseSyntheticEvent) => void
-        onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
         onSubmit: (e: React.BaseSyntheticEvent) => void
     }
 }
@@ -25,10 +24,7 @@ const Lane = ({
     handlers: { editing, onToggleEditing, onEditLaneName },
     addCardHandlers,
 }: Props) => {
-    const [tempName, setTempName] = useState(laneName)
-    useEffect(() => {
-        setTempName(laneName)
-    }, [editing])
+    const [tempName, setTempName] = useTemporaryValue(laneName, editing)
 
     return (
         <div className="lane round" id={id}>

@@ -6,7 +6,6 @@ interface Props {
     addCardHandlers: {
         adding: boolean
         onToggleAdding: (e: React.BaseSyntheticEvent) => void
-        onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
         onSubmit: (e: React.BaseSyntheticEvent) => void
     }
     laneHandlers: {

@@ -13,10 +13,6 @@ function useCardAdder(boardData: BoardType | null, setStale: Function) {
         }
     }
 
-    function handleTypingNewCard(e: React.ChangeEvent<HTMLInputElement>) {
-        // setAddInput(e.target.value)
-    }
-
     async function handleAddNewCard(e: React.BaseSyntheticEvent) {
         e.preventDefault()
 
@@ -63,7 +59,6 @@ function useCardAdder(boardData: BoardType | null, setStale: Function) {
         adding: addingCard,
         onToggleAdding: handleAddingCard,
         onSubmit: handleAddNewCard,
-        onTyping: handleTypingNewCard,
     }
 }
 

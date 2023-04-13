@@ -12,10 +12,6 @@ function useBoard(data: BoardType | null, setData: Function) {
         }
     }
 
-    function handleTypingBoard(e: React.ChangeEvent<HTMLInputElement>) {
-        setData({ ...data, boardName: e.target.value })
-    }
-
     async function handleEditBoardName(e: React.BaseSyntheticEvent) {
         e.preventDefault()
 
@@ -60,7 +56,6 @@ function useBoard(data: BoardType | null, setData: Function) {
     return {
         editing: editingBoard,
         onToggleEditing: handleToggleEditingBoard,
-        onTyping: handleTypingBoard,
         onEditBoardName: handleEditBoardName,
     }
 }

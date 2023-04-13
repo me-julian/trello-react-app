@@ -1,6 +1,7 @@
-import Lanes from './Lanes'
 import { LaneType } from './types'
+import Lanes from './Lanes'
 import { AddNewBtn } from './buttons'
+import { useTemporaryValue } from './hooks'
 
 interface Props {
     id: string
@@ -9,19 +10,16 @@ interface Props {
     handlers: {
         editing: boolean
         onToggleEditing: (e: React.BaseSyntheticEvent) => void
-        onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
         onEditBoardName: (e: React.BaseSyntheticEvent) => void
     }
     addLaneHandlers: {
         adding: boolean
         onToggleAdding: (e: React.BaseSyntheticEvent) => void
         onSubmit: (e: React.BaseSyntheticEvent) => void
-        onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
     }
     addCardHandlers: {
         adding: boolean
         onToggleAdding: (e: React.BaseSyntheticEvent) => void
-        onTyping: (e: React.ChangeEvent<HTMLInputElement>) => void
         onSubmit: (e: React.BaseSyntheticEvent) => void
     }
     laneHandlers: {
@@ -35,11 +33,13 @@ function Board({
     id,
     boardName,
     lanes,
-    handlers: { editing, onToggleEditing, onTyping, onEditBoardName },
+    handlers: { editing, onToggleEditing, onEditBoardName },
     addLaneHandlers,
     addCardHandlers,
     laneHandlers,
 }: Props) {
+    const [tempName, setTempName] = useTemporaryValue(boardName, editing)
+
     return (
         <>
             <header>
@@ -52,8 +52,8 @@ function Board({
                             <input
                                 name="board-name"
                                 type="text"
-                                value={boardName}
-                                onChange={onTyping}
+                                value={tempName}
+                                onChange={(e) => setTempName(e.target.value)}
                                 autoFocus
                             />
                         </label>
