@@ -25,7 +25,7 @@ interface Props {
     laneHandlers: {
         editing: null | number
         onToggleEditing: (e: React.BaseSyntheticEvent, index: number) => void
-        onEditLaneName: (e: React.BaseSyntheticEvent) => void
+        onEditLaneName: (e: React.BaseSyntheticEvent, id: string) => void
     }
 }
 

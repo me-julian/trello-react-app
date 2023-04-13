@@ -9,7 +9,7 @@ interface Props {
     handlers: {
         editing: null | number
         onToggleEditing: (e: React.BaseSyntheticEvent, index: number) => void
-        onEditLaneName: (e: React.BaseSyntheticEvent) => void
+        onEditLaneName: (e: React.BaseSyntheticEvent, id: string) => void
     }
     addCardHandlers: {
         adding: boolean
@@ -43,7 +43,7 @@ const Lane = ({
             <div className="lane-head">
                 {editing === index ? (
                     <form
-                        onSubmit={onEditLaneName}
+                        onSubmit={(e) => onEditLaneName(e, id)}
                         onKeyDown={(e) => onToggleEditing(e, index)}
                     >
                         <label>
