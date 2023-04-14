@@ -2,20 +2,17 @@ import { BoardType } from '../types'
 import { useState } from 'react'
 
 function useCard(data: BoardType | null, setStale: Function) {
-    const [editingCard, setEditingCard] = useState<null | number>(null)
+    const [editingCard, setEditingCard] = useState<null | string>(null)
 
-    function handleToggleEditingCard(
-        e: React.BaseSyntheticEvent,
-        index: number
-    ) {
+    function handleToggleEditingCard(e: React.BaseSyntheticEvent, id: string) {
         if ('key' in e && e.key === 'Escape') {
             setEditingCard(null)
         } else if (e.type === 'click') {
-            setEditingCard(editingCard === index ? null : index)
+            setEditingCard(editingCard === id ? null : id)
         }
     }
 
-    async function handleEditCardName(
+    async function handleEditCardText(
         e: React.BaseSyntheticEvent,
         ids: { laneId: string; cardId: string },
         currName: string,
@@ -71,7 +68,6 @@ function useCard(data: BoardType | null, setStale: Function) {
 
     async function handleMoveCard(
         e: React.BaseSyntheticEvent,
-        id: string,
         ids: { laneId: string; cardId: string },
         type: string
     ) {
@@ -128,7 +124,7 @@ function useCard(data: BoardType | null, setStale: Function) {
     return {
         editing: editingCard,
         onToggleEditing: handleToggleEditingCard,
-        onEditCardName: handleEditCardName,
+        onEditCardText: handleEditCardText,
         onMoveCard: handleMoveCard,
         onDeleteCard: handleDeleteCard,
     }

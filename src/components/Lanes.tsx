@@ -19,7 +19,6 @@ function Lanes({ lanes, addCardHandlers, laneHandlers, cardHandlers }: Props) {
             {lanes.map((lane, index) => (
                 <Lane
                     key={lane.id}
-                    index={index}
                     leftEnd={index === 0}
                     rightEnd={index === lanes.length - 1}
                     lane={lane}

@@ -197,7 +197,7 @@ input {
     border-bottom: 1px solid #0000004d;
 }
 
-.card form input:last-child {
+.card form label:last-child input {
     font-size: 14px;
     padding: 0.25rem 0.75rem 0.5rem 0.75rem;
     margin-left: 0.5rem;

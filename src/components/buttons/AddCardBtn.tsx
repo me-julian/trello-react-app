@@ -1,52 +1,40 @@
 import { AddCardHandlerProps } from '../types'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useRef } from 'react'
-import { useTemporaryValue } from '../hooks'
+import { useCardForm } from '../hooks'
 import { CSSTransition } from 'react-transition-group'
 
 interface Props {
     laneId: string
-    laneIndex: number
     handlers: AddCardHandlerProps
 }
 
 const AddNewBtn = ({
     laneId,
-    laneIndex,
     handlers: { adding, onToggleAdding, onSubmit },
 }: Props) => {
-    const [tempName, setTempName] = useTemporaryValue('', adding)
-    const [tempDescr, setTempDescr] = useTemporaryValue('', adding)
-
-    const formRef = useRef<null | HTMLFormElement>(null)
-    const descrRef = useRef<null | HTMLInputElement>(null)
-
-    function handleAdvanceCursor(e: React.KeyboardEvent<HTMLInputElement>) {
-        if (e.key === 'Enter') {
-            descrRef.current?.focus()
-        }
-    }
-
-    function handleEnterSubmit(e: React.KeyboardEvent<HTMLInputElement>) {
-        if (e.key === 'Enter') {
-            formRef.current?.dispatchEvent(
-                new Event('submit', { cancelable: true, bubbles: true })
-            )
-        }
-    }
+    const [
+        tempName,
+        setTempName,
+        tempDescr,
+        setTempDescr,
+        formRef,
+        descrRef,
+        handleAdvanceCursor,
+        handleEnterSubmit,
+    ] = useCardForm(adding, '', '')
 
     return (
         <div className="add-new round">
             <FontAwesomeIcon
-                className={adding === laneIndex ? 'turn' : ''}
+                className={adding === laneId ? 'turn' : ''}
                 icon={faPlus}
                 size="sm"
-                onClick={(e) => onToggleAdding(e, laneIndex)}
+                onClick={(e) => onToggleAdding(e, laneId)}
             />
             <CSSTransition
                 nodeRef={formRef}
-                in={adding === laneIndex}
+                in={adding === laneId}
                 timeout={200}
                 classNames="toggle-add-new"
                 unmountOnExit
@@ -54,7 +42,7 @@ const AddNewBtn = ({
                 <form
                     ref={formRef}
                     onSubmit={(e) => onSubmit(e, laneId)}
-                    onKeyDown={(e) => onToggleAdding(e, laneIndex)}
+                    onKeyDown={(e) => onToggleAdding(e, laneId)}
                 >
                     <label>
                         <input

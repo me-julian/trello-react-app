@@ -1,7 +1,7 @@
 type CardHandlerProps = {
-    editing: null | number
-    onToggleEditing: (e: React.BaseSyntheticEvent, index: number) => void
-    onEditCardName: (
+    editing: null | string
+    onToggleEditing: (e: React.BaseSyntheticEvent, id: string) => void
+    onEditCardText: (
         e: React.BaseSyntheticEvent,
         ids: { laneId: string; cardId: string },
         currName: string,
@@ -9,9 +9,8 @@ type CardHandlerProps = {
     ) => void
     onMoveCard: (
         e: React.BaseSyntheticEvent,
-        id: string,
-        type: string,
-        ids: { laneId: string; cardId: string }
+        ids: { laneId: string; cardId: string },
+        type: string
     ) => void
     onDeleteCard: (
         e: React.BaseSyntheticEvent,

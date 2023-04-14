@@ -1,6 +1,6 @@
 type LaneHandlerProps = {
-    editing: null | number
-    onToggleEditing: (e: React.BaseSyntheticEvent, index: number) => void
+    editing: null | string
+    onToggleEditing: (e: React.BaseSyntheticEvent, id: string) => void
     onEditLaneName: (
         e: React.BaseSyntheticEvent,
         ids: { laneId: string },

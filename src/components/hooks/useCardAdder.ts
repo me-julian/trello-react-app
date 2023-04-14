@@ -2,13 +2,13 @@ import { BoardType } from '../types'
 import { useState } from 'react'
 
 function useCardAdder(boardData: BoardType | null, setStale: Function) {
-    const [addingCard, setAddingCard] = useState<null | number>(null)
+    const [addingCard, setAddingCard] = useState<null | string>(null)
 
-    function handleAddingCard(e: React.BaseSyntheticEvent, index: number) {
+    function handleAddingCard(e: React.BaseSyntheticEvent, laneId: string) {
         if ('key' in e && e.key === 'Escape') {
             setAddingCard(null)
         } else if (e.type === 'click') {
-            setAddingCard(addingCard === index ? null : index)
+            setAddingCard(addingCard === laneId ? null : laneId)
         }
     }
 

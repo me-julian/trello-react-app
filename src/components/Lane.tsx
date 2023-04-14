@@ -9,7 +9,6 @@ import { DeleteBtn, EditBtn, MoveBtn } from './buttons'
 import { useTemporaryValue } from './hooks'
 
 interface Props {
-    index: number
     leftEnd: boolean
     rightEnd: boolean
     lane: LaneType
@@ -19,7 +18,6 @@ interface Props {
 }
 
 const Lane = ({
-    index,
     leftEnd,
     rightEnd,
     lane: { id, laneName, cards, sequence },
@@ -45,7 +43,7 @@ const Lane = ({
                     onClick={onMoveLane}
                 />
                 <div>
-                    <EditBtn onClick={onToggleEditing} index={index} />
+                    <EditBtn onClick={onToggleEditing} id={id} />
                     <DeleteBtn onClick={onDeleteLane} ids={{ laneId: id }} />
                 </div>
                 <MoveBtn
@@ -56,12 +54,12 @@ const Lane = ({
                 />
             </div>
             <div className="lane-head">
-                {editing === index ? (
+                {editing === id ? (
                     <form
                         onSubmit={(e) =>
                             onEditLaneName(e, { laneId: id }, laneName)
                         }
-                        onKeyDown={(e) => onToggleEditing(e, index)}
+                        onKeyDown={(e) => onToggleEditing(e, id)}
                     >
                         <label>
                             <input
@@ -84,7 +82,6 @@ const Lane = ({
                 leftEnd={leftEnd}
                 rightEnd={rightEnd}
                 laneId={id}
-                laneIndex={index}
                 addCardHandlers={addCardHandlers}
                 cardHandlers={cardHandlers}
             />
