@@ -72,33 +72,49 @@ function useCard(data: BoardType | null, setStale: Function) {
         type: string
     ) {
         console.log('Move card')
-        // let sequenceShift
-        // switch (type) {
-        //     case 'left':
-        //         sequenceShift = -1
-        //         break
-        //     case 'right':
-        //         sequenceShift = 1
-        //         break
-        // }
-
-        // const response = await fetch(
-        //     `http://localhost:5000/boards/${data?.id}/lanes/${ids.laneId}/cards/${ids.cardId}`,
-        //     {
-        //         method: 'PATCH',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({ sequenceShift: sequenceShift }),
-        //     }
-        // )
-
-        // if (response.ok) {
-        //     setStale(true)
-        // } else {
-        //     console.error('Failed to move card in DB.')
-        // }
+        switch (type) {
+            case 'left':
+            // moveCardToLane(data?.id, ids.laneId, ids.cardId, -1)
+            case 'right':
+            // moveCardToLane(data?.id, ids.laneId, ids.cardId, 1)
+            case 'up':
+                moveCardInLane(data?.id, ids.laneId, ids.cardId, -1)
+                break
+            case 'down':
+                moveCardInLane(data?.id, ids.laneId, ids.cardId, 1)
+        }
     }
+
+    async function moveCardInLane(
+        boardId: string | undefined,
+        laneId: string,
+        cardId: string,
+        sequenceShift: number
+    ) {
+        const response = await fetch(
+            `http://localhost:5000/boards/${boardId}/lanes/${laneId}/cards/${cardId}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ sequenceShift: sequenceShift }),
+            }
+        )
+
+        if (response.ok) {
+            setStale(true)
+        } else {
+            console.error('Failed to move card in DB.')
+        }
+    }
+
+    async function moveCardToLane(
+        boardId: string | undefined,
+        laneId: string,
+        cardId: string,
+        sequenceShift: number
+    ) {}
 
     async function handleDeleteCard(
         e: React.BaseSyntheticEvent,
