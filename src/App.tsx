@@ -11,17 +11,17 @@ import {
 } from './components/hooks'
 
 function App() {
-    const { data, setData, setStale, error, setError } = useLoadBoard()
+    const { data, setData, stale, setStale, error, setError } = useLoadBoard()
 
     const boardHandlers = useBoard(data, setData)
 
-    const addLaneHandlers = useLaneAdder(data, setStale)
+    const addLaneHandlers = useLaneAdder(data, stale, setStale)
 
-    const addCardHandlers = useCardAdder(data, setStale)
+    const addCardHandlers = useCardAdder(data, stale, setStale)
 
-    const laneHandlers = useLane(data, setStale)
+    const laneHandlers = useLane(data, stale, setStale)
 
-    const cardHandlers = useCard(data, setStale)
+    const cardHandlers = useCard(data, stale, setStale)
 
     if (!data) {
         return <h1>Loading...</h1>

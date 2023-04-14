@@ -1,7 +1,7 @@
 import { BoardType, LaneType } from '../types'
 import { useState } from 'react'
 
-function useLane(data: BoardType | null, setStale: Function) {
+function useLane(data: BoardType | null, stale: boolean, setStale: Function) {
     const [editingLane, setEditingLane] = useState<null | string>(null)
 
     function handleToggleEditingLane(e: React.BaseSyntheticEvent, id: string) {
@@ -27,7 +27,7 @@ function useLane(data: BoardType | null, setStale: Function) {
         } else {
             try {
                 await postLaneName(data!.id, ids.laneId, newName)
-                setStale(true)
+                setStale(!stale)
                 setEditingLane(null)
             } catch {
                 console.error('Failed to update lane name in DB.')
@@ -87,7 +87,7 @@ function useLane(data: BoardType | null, setStale: Function) {
         )
 
         if (response.ok) {
-            setStale(true)
+            setStale(!stale)
         } else {
             console.error('Failed to move lane in DB.')
         }
@@ -125,7 +125,7 @@ function useLane(data: BoardType | null, setStale: Function) {
         )
 
         if (response.ok) {
-            setStale(true)
+            setStale(!stale)
         } else {
             console.error('Failed to delete lane from DB.')
         }
@@ -169,7 +169,7 @@ function useLane(data: BoardType | null, setStale: Function) {
         )
 
         if (response.ok) {
-            setStale(true)
+            setStale(!stale)
         } else {
             console.error('Failed to delete lane from DB.')
         }

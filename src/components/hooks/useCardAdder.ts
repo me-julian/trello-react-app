@@ -1,7 +1,11 @@
 import { BoardType } from '../types'
 import { useState } from 'react'
 
-function useCardAdder(boardData: BoardType | null, setStale: Function) {
+function useCardAdder(
+    boardData: BoardType | null,
+    stale: boolean,
+    setStale: Function
+) {
     const [addingCard, setAddingCard] = useState<null | string>(null)
 
     function handleAddingCard(e: React.BaseSyntheticEvent, laneId: string) {
@@ -30,7 +34,7 @@ function useCardAdder(boardData: BoardType | null, setStale: Function) {
                     cardName: newName,
                     cardDescr: newDescr,
                 })
-                setStale(true)
+                setStale(!stale)
                 setAddingCard(null)
             } catch {
                 console.error('Failed to add card to DB.')

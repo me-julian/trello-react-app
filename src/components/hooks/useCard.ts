@@ -1,7 +1,7 @@
 import { BoardType } from '../types'
 import { useState } from 'react'
 
-function useCard(data: BoardType | null, setStale: Function) {
+function useCard(data: BoardType | null, stale: boolean, setStale: Function) {
     const [editingCard, setEditingCard] = useState<null | string>(null)
 
     function handleToggleEditingCard(e: React.BaseSyntheticEvent, id: string) {
@@ -32,7 +32,7 @@ function useCard(data: BoardType | null, setStale: Function) {
                     cardName: newName,
                     cardDescr: newDescr,
                 })
-                setStale(true)
+                setStale(!stale)
                 setEditingCard(null)
             } catch {
                 console.error('Failed to update card name in DB.')
@@ -76,7 +76,6 @@ function useCard(data: BoardType | null, setStale: Function) {
         },
         type: string
     ) {
-        console.log('Move card')
         switch (type) {
             case 'left':
                 moveCardToLane(data?.id, ids.laneId, ids.cardId, ids.leftLaneId)
@@ -115,7 +114,7 @@ function useCard(data: BoardType | null, setStale: Function) {
         )
 
         if (response.ok) {
-            setStale(true)
+            setStale(!stale)
         } else {
             console.error('Failed to move card in DB.')
         }
@@ -135,7 +134,7 @@ function useCard(data: BoardType | null, setStale: Function) {
         )
 
         if (response.ok) {
-            setStale(true)
+            setStale(!stale)
         } else {
             console.error('Failed to move card in DB.')
         }
@@ -155,7 +154,7 @@ function useCard(data: BoardType | null, setStale: Function) {
             )
 
             if (response.ok) {
-                setStale(true)
+                setStale(!stale)
             } else {
                 console.error('Failed to delete card from DB.')
             }

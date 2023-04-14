@@ -1,7 +1,11 @@
 import { BoardType } from '../types'
 import { useState } from 'react'
 
-function useLaneAdder(boardData: BoardType | null, setStale: Function) {
+function useLaneAdder(
+    boardData: BoardType | null,
+    stale: boolean,
+    setStale: Function
+) {
     const [addingLane, setAddingLane] = useState(false)
 
     function handleToggleAddingLane(e: React.BaseSyntheticEvent) {
@@ -22,7 +26,7 @@ function useLaneAdder(boardData: BoardType | null, setStale: Function) {
             try {
                 await postNewLane(boardData?.id, laneName)
 
-                setStale(true)
+                setStale(!stale)
                 setAddingLane(false)
             } catch {
                 console.error('Failed to add new lane to DB.')

@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie'
 export default function useLoadBoard(): {
     data: BoardType | null
     setData: Function
+    stale: boolean
     setStale: Function
     error: null | Error
     setError: Function
@@ -28,7 +29,6 @@ export default function useLoadBoard(): {
                 if (response.ok) {
                     const data = await response.json()
                     setData(data)
-                    setStale(false)
                     setError(null)
                     if (cookies.lastBoardId !== data.id) {
                         setCookie('lastBoardId', data.id, { maxAge: 86400 })
@@ -109,5 +109,5 @@ export default function useLoadBoard(): {
             abortController.abort()
         }
     }, [stale])
-    return { data, setData, setStale, error, setError }
+    return { data, setData, stale, setStale, error, setError }
 }
