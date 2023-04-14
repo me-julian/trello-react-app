@@ -1,4 +1,4 @@
-import { BoardType } from '../types'
+import { BoardType, LaneType } from '../types'
 import { useState } from 'react'
 
 function useLane(data: BoardType | null, setStale: Function) {
@@ -26,7 +26,7 @@ function useLane(data: BoardType | null, setStale: Function) {
             alert('Lane must have a name.')
         } else {
             try {
-                await postLaneName(data?.id, ids.laneId, newName)
+                await postLaneName(data!.id, ids.laneId, newName)
                 setStale(true)
                 setEditingLane(null)
             } catch {
@@ -76,7 +76,7 @@ function useLane(data: BoardType | null, setStale: Function) {
         }
 
         const response = await fetch(
-            `http://localhost:5000/boards/${data?.id}/lanes/${ids.laneId}`,
+            `http://localhost:5000/boards/${data!.id}/lanes/${ids.laneId}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -99,18 +99,79 @@ function useLane(data: BoardType | null, setStale: Function) {
     ) {
         const msg = 'Are you sure you want to delete this lane?'
         if (confirm(msg)) {
-            const response = await fetch(
-                `http://localhost:5000/boards/${data?.id}/lanes/${ids.laneId}`,
-                {
-                    method: 'DELETE',
+            const lanes = data!.lanes
+            const lane = lanes.find((lane) => lane.id === ids.laneId)
+            const cards = lane?.cards
+            if (lanes.length > 1 && cards!.length > 0) {
+                const transferMsg =
+                    'Would you like to move the cards to another lane before deleting?'
+                if (confirm(transferMsg)) {
+                    selectDestinationLane(data!, lanes, lane!)
+                } else {
+                    deleteLaneRequest(data!.id, ids.laneId)
                 }
-            )
-
-            if (response.ok) {
-                setStale(true)
             } else {
-                console.error('Failed to delete lane from DB.')
+                deleteLaneRequest(data!.id, ids.laneId)
             }
+        }
+    }
+
+    async function deleteLaneRequest(boardId: string, laneId: string) {
+        const response = await fetch(
+            `http://localhost:5000/boards/${boardId}/lanes/${laneId}`,
+            {
+                method: 'DELETE',
+            }
+        )
+
+        if (response.ok) {
+            setStale(true)
+        } else {
+            console.error('Failed to delete lane from DB.')
+        }
+    }
+
+    function selectDestinationLane(
+        data: BoardType,
+        lanes: Array<LaneType>,
+        laneToDelete: LaneType
+    ) {
+        const selectLane = prompt(
+            "Enter a number for the lane you'd like to move the cards to (left-to-right)."
+        )
+
+        const selectedLane = lanes[parseInt(selectLane!) - 1]
+        if (selectedLane) {
+            if (selectedLane === laneToDelete) {
+                alert(
+                    "Please select a lane other than the one you're deleting."
+                )
+            } else {
+                deleteAndTransfer(data.id, laneToDelete.id, selectedLane.id)
+            }
+        } else {
+            alert(
+                `No lane for "${selectLane}". If you'd like to move the cards to the leftmost lane, enter "1", and so on.`
+            )
+        }
+    }
+
+    async function deleteAndTransfer(
+        boardId: string,
+        laneId: string,
+        destinationLaneId: string
+    ) {
+        const response = await fetch(
+            `http://localhost:5000/boards/${boardId}/lanes/${laneId}/delete-and-transfer/${destinationLaneId}`,
+            {
+                method: 'PATCH',
+            }
+        )
+
+        if (response.ok) {
+            setStale(true)
+        } else {
+            console.error('Failed to delete lane from DB.')
         }
     }
 
