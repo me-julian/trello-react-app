@@ -3,6 +3,7 @@ import { DeleteBtn, EditBtn, MoveBtn } from './buttons'
 
 interface Props {
     card: CardType
+    laneId: string
     index: number
     topEnd: boolean
     bottomEnd: boolean
@@ -13,6 +14,7 @@ interface Props {
 
 function Card({
     card: { id, cardName, cardDescr, sequence },
+    laneId,
     index,
     topEnd,
     bottomEnd,
@@ -29,14 +31,37 @@ function Card({
     return (
         <div id={id} className="card round">
             <div className="editing-buttons">
-                {/* <MoveBtn iconType={'left'} parentId={id} active={leftEnd} />
-                <MoveBtn iconType={'up'} parentId={id} active={topEnd} /> */}
+                <MoveBtn
+                    iconType={'left'}
+                    ids={{ laneId: laneId, cardId: id }}
+                    active={leftEnd}
+                    onClick={onMoveCard}
+                />
+                <MoveBtn
+                    iconType={'up'}
+                    ids={{ laneId: laneId, cardId: id }}
+                    active={topEnd}
+                    onClick={onMoveCard}
+                />
                 <div>
-                    {/* <EditBtn onClick={onToggleEditing} index={index} />
-                    <DeleteBtn onClick={onDeleteCard} parentId={id} /> */}
+                    <EditBtn index={index} onClick={onToggleEditing} />
+                    <DeleteBtn
+                        ids={{ laneId: laneId, cardId: id }}
+                        onClick={onDeleteCard}
+                    />
                 </div>
-                {/* <MoveBtn iconType={'down'} parentId={id} active={bottomEnd} />
-                <MoveBtn iconType={'right'} parentId={id} active={rightEnd} /> */}
+                <MoveBtn
+                    iconType={'down'}
+                    ids={{ laneId: laneId, cardId: id }}
+                    active={bottomEnd}
+                    onClick={onMoveCard}
+                />
+                <MoveBtn
+                    iconType={'right'}
+                    ids={{ laneId: laneId, cardId: id }}
+                    active={rightEnd}
+                    onClick={onMoveCard}
+                />
             </div>
             <div className="card-head">
                 <p>{cardName}</p>

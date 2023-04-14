@@ -2,56 +2,63 @@ import { BoardType } from '../types'
 import { useState } from 'react'
 
 function useCardAdder(boardData: BoardType | null, setStale: Function) {
-    const [addingCard, setAddingCard] = useState(false)
-    const [addInput, setAddInput] = useState('')
+    const [addingCard, setAddingCard] = useState<null | number>(null)
 
-    function handleAddingCard(e: React.BaseSyntheticEvent) {
+    function handleAddingCard(e: React.BaseSyntheticEvent, index: number) {
         if ('key' in e && e.key === 'Escape') {
-            setAddingCard(!addingCard)
+            setAddingCard(null)
         } else if (e.type === 'click') {
-            setAddingCard(!addingCard)
+            setAddingCard(addingCard === index ? null : index)
         }
     }
 
-    async function handleAddNewCard(e: React.BaseSyntheticEvent) {
+    async function handleAddNewCard(
+        e: React.BaseSyntheticEvent,
+        laneId: string
+    ) {
         e.preventDefault()
 
-        // const laneName = e.target['lane-name'].value
-        // if (laneName.trim() === '') {
-        //     alert('Lane must have a name.')
-        // } else {
-        //     try {
-        //         await postNewCard(boardData?.id, laneName)
+        console.log('submit')
 
-        //         setStale(true)
-        //         setAddInput('')
-        //         setAddingCard(false)
-        //     } catch {
-        //         console.error('Failed to add new lane to DB.')
-        //     }
-        // }
+        const newName = e.target['card-name'].value
+        const newDescr = e.target['card-descr'].value
+        if (newName.trim() === '') {
+            alert('Card must have a name.')
+        } else {
+            try {
+                await postNewCard(boardData?.id, laneId, {
+                    cardName: newName,
+                    cardDescr: newDescr,
+                })
+                setStale(true)
+                setAddingCard(null)
+            } catch {
+                console.error('Failed to add card to DB.')
+            }
+        }
     }
 
     function postNewCard(
         boardId: string | undefined,
-        laneName: string
+        laneId: string,
+        cardData: { cardName: string; cardDescr?: string }
     ): Promise<Response> {
         return new Promise(async (resolve, reject) => {
-            // const response = await fetch(
-            //     `http://localhost:5000/boards/${boardId}/lanes`,
-            //     {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //         },
-            //         body: JSON.stringify({ laneName: laneName }),
-            //     }
-            // )
-            // if (response.ok) {
-            //     resolve(response)
-            // } else {
-            //     reject(response)
-            // }
+            const response = await fetch(
+                `http://localhost:5000/boards/${boardId}/lanes/${laneId}/cards`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(cardData),
+                }
+            )
+            if (response.ok) {
+                resolve(response)
+            } else {
+                reject(response)
+            }
         })
     }
 

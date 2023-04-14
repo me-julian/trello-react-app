@@ -6,6 +6,8 @@ interface Props {
     cards: Array<CardType>
     leftEnd: boolean
     rightEnd: boolean
+    laneId: string
+    laneIndex: number
     addCardHandlers: AddCardHandlerProps
     cardHandlers: CardHandlerProps
 }
@@ -14,6 +16,8 @@ function Cards({
     cards,
     leftEnd,
     rightEnd,
+    laneId,
+    laneIndex,
     addCardHandlers,
     cardHandlers,
 }: Props) {
@@ -24,6 +28,7 @@ function Cards({
                     <Card
                         key={card.id}
                         card={card}
+                        laneId={laneId}
                         index={index}
                         topEnd={index === 0}
                         bottomEnd={index === cards.length - 1}
@@ -33,7 +38,11 @@ function Cards({
                     />
                 ))}
             </div>
-            <AddCardBtn handlers={addCardHandlers} />
+            <AddCardBtn
+                handlers={addCardHandlers}
+                laneId={laneId}
+                laneIndex={laneIndex}
+            />
         </>
     )
 }

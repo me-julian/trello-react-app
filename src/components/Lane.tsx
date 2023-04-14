@@ -40,25 +40,27 @@ const Lane = ({
             <div className="editing-buttons">
                 <MoveBtn
                     iconType="left"
-                    onClick={onMoveLane}
-                    parentId={id}
+                    ids={{ laneId: id }}
                     active={leftEnd}
+                    onClick={onMoveLane}
                 />
                 <div>
                     <EditBtn onClick={onToggleEditing} index={index} />
-                    <DeleteBtn onClick={onDeleteLane} parentId={id} />
+                    <DeleteBtn onClick={onDeleteLane} ids={{ laneId: id }} />
                 </div>
                 <MoveBtn
                     iconType="right"
-                    onClick={onMoveLane}
-                    parentId={id}
+                    ids={{ laneId: id }}
                     active={rightEnd}
+                    onClick={onMoveLane}
                 />
             </div>
             <div className="lane-head">
                 {editing === index ? (
                     <form
-                        onSubmit={(e) => onEditLaneName(e, id, laneName)}
+                        onSubmit={(e) =>
+                            onEditLaneName(e, { laneId: id }, laneName)
+                        }
                         onKeyDown={(e) => onToggleEditing(e, index)}
                     >
                         <label>
@@ -67,8 +69,8 @@ const Lane = ({
                                 type="text"
                                 placeholder={laneName}
                                 value={tempName}
-                                onChange={(e) => setTempName(e.target.value)}
                                 autoFocus
+                                onChange={(e) => setTempName(e.target.value)}
                             />
                         </label>
                     </form>
@@ -81,6 +83,8 @@ const Lane = ({
                 cards={cards}
                 leftEnd={leftEnd}
                 rightEnd={rightEnd}
+                laneId={id}
+                laneIndex={index}
                 addCardHandlers={addCardHandlers}
                 cardHandlers={cardHandlers}
             />

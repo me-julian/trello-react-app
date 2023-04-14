@@ -17,7 +17,7 @@ function useLane(data: BoardType | null, setStale: Function) {
 
     async function handleEditLaneName(
         e: React.BaseSyntheticEvent,
-        id: string,
+        ids: { laneId: string },
         currName: string
     ) {
         e.preventDefault()
@@ -29,7 +29,7 @@ function useLane(data: BoardType | null, setStale: Function) {
             alert('Lane must have a name.')
         } else {
             try {
-                await postLaneName(data?.id, id, newName)
+                await postLaneName(data?.id, ids.laneId, newName)
                 setStale(true)
                 setEditingLane(null)
             } catch {
@@ -65,7 +65,7 @@ function useLane(data: BoardType | null, setStale: Function) {
 
     async function handleMoveLane(
         e: React.BaseSyntheticEvent,
-        id: string,
+        ids: { laneId: string },
         type: string
     ) {
         let sequenceShift
@@ -79,7 +79,7 @@ function useLane(data: BoardType | null, setStale: Function) {
         }
 
         const response = await fetch(
-            `http://localhost:5000/boards/${data?.id}/lanes/${id}`,
+            `http://localhost:5000/boards/${data?.id}/lanes/${ids.laneId}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -96,11 +96,14 @@ function useLane(data: BoardType | null, setStale: Function) {
         }
     }
 
-    async function handleDeleteLane(e: React.BaseSyntheticEvent, id: string) {
+    async function handleDeleteLane(
+        e: React.BaseSyntheticEvent,
+        ids: { laneId: string }
+    ) {
         const msg = 'Are you sure you want to delete this lane?'
         if (confirm(msg)) {
             const response = await fetch(
-                `http://localhost:5000/boards/${data?.id}/lanes/${id}`,
+                `http://localhost:5000/boards/${data?.id}/lanes/${ids.laneId}`,
                 {
                     method: 'DELETE',
                 }

@@ -17,8 +17,7 @@ function useCard(data: BoardType | null, setStale: Function) {
 
     async function handleEditCardName(
         e: React.BaseSyntheticEvent,
-        laneId: string,
-        cardId: string,
+        ids: { laneId: string; cardId: string },
         currName: string,
         currDescr: string
     ) {
@@ -32,7 +31,7 @@ function useCard(data: BoardType | null, setStale: Function) {
             alert('Card must have a name.')
         } else {
             try {
-                await postCardText(data?.id, laneId, cardId, {
+                await postCardText(data?.id, ids.laneId, ids.cardId, {
                     cardName: newName,
                     cardDescr: newDescr,
                 })
@@ -72,47 +71,47 @@ function useCard(data: BoardType | null, setStale: Function) {
 
     async function handleMoveCard(
         e: React.BaseSyntheticEvent,
-        laneId: string,
-        cardId: string,
+        id: string,
+        ids: { laneId: string; cardId: string },
         type: string
     ) {
-        let sequenceShift
-        switch (type) {
-            case 'left':
-                sequenceShift = -1
-                break
-            case 'right':
-                sequenceShift = 1
-                break
-        }
+        console.log('Move card')
+        // let sequenceShift
+        // switch (type) {
+        //     case 'left':
+        //         sequenceShift = -1
+        //         break
+        //     case 'right':
+        //         sequenceShift = 1
+        //         break
+        // }
 
-        const response = await fetch(
-            `http://localhost:5000/boards/${data?.id}/lanes/${laneId}/cards/${cardId}`,
-            {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ sequenceShift: sequenceShift }),
-            }
-        )
+        // const response = await fetch(
+        //     `http://localhost:5000/boards/${data?.id}/lanes/${ids.laneId}/cards/${ids.cardId}`,
+        //     {
+        //         method: 'PATCH',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({ sequenceShift: sequenceShift }),
+        //     }
+        // )
 
-        if (response.ok) {
-            setStale(true)
-        } else {
-            console.error('Failed to move card in DB.')
-        }
+        // if (response.ok) {
+        //     setStale(true)
+        // } else {
+        //     console.error('Failed to move card in DB.')
+        // }
     }
 
     async function handleDeleteCard(
         e: React.BaseSyntheticEvent,
-        laneId: string,
-        cardId: string
+        ids: { laneId: string; cardId: string }
     ) {
         const msg = 'Are you sure you want to delete this card?'
         if (confirm(msg)) {
             const response = await fetch(
-                `http://localhost:5000/boards/${data?.id}/lanes/${laneId}/cards/${cardId}`,
+                `http://localhost:5000/boards/${data?.id}/lanes/${ids.laneId}/cards/${ids.cardId}`,
                 {
                     method: 'DELETE',
                 }

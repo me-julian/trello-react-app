@@ -8,12 +8,12 @@ import {
 
 interface Props {
     iconType: 'up' | 'down' | 'left' | 'right'
-    onClick: (e: React.BaseSyntheticEvent, id: string, type: string) => void
-    parentId: string
+    onClick: Function
+    ids: { laneId: string; cardId?: string }
     active: boolean
 }
 
-function MoveBtn({ iconType, onClick, parentId, active }: Props) {
+function MoveBtn({ iconType, onClick, ids, active }: Props) {
     let icon
     switch (iconType) {
         case 'up':
@@ -37,8 +37,8 @@ function MoveBtn({ iconType, onClick, parentId, active }: Props) {
                 size="sm"
                 onClick={
                     active
-                        ? () => console.log('Lane at end')
-                        : (e) => onClick(e, parentId, iconType)
+                        ? () => console.log('Item at end')
+                        : (e) => onClick(e, ids, iconType)
                 }
             />
         </>
