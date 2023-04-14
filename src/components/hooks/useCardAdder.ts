@@ -18,11 +18,14 @@ function useCardAdder(
 
     async function handleAddNewCard(
         e: React.BaseSyntheticEvent,
-        laneId: string
+        laneId: string,
+        active: null | string
     ) {
         e.preventDefault()
 
-        console.log('submit')
+        if (!active) {
+            return
+        }
 
         const newName = e.target['card-name'].value
         const newDescr = e.target['card-descr'].value

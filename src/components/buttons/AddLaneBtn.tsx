@@ -27,7 +27,7 @@ const AddNewBtn = ({
             >
                 <form
                     ref={formRef}
-                    onSubmit={onSubmit}
+                    onSubmit={(e) => onSubmit(e, adding)}
                     onKeyDown={onToggleAdding}
                 >
                     <label>

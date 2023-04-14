@@ -16,8 +16,15 @@ function useLaneAdder(
         }
     }
 
-    async function handleAddNewLane(e: React.BaseSyntheticEvent) {
+    async function handleAddNewLane(
+        e: React.BaseSyntheticEvent,
+        active: boolean
+    ) {
         e.preventDefault()
+
+        if (!active) {
+            return
+        }
 
         const laneName = e.target['lane-name'].value
         if (laneName.trim() === '') {
