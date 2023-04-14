@@ -1,57 +1,64 @@
 import { BoardType } from '../types'
 import { useState } from 'react'
 
-function useLane(data: BoardType | null, setStale: Function) {
-    const [editingLane, setEditingLane] = useState<null | number>(null)
+function useCard(data: BoardType | null, setStale: Function) {
+    const [editingCard, setEditingCard] = useState<null | number>(null)
 
-    function handleToggleEditingLane(
+    function handleToggleEditingCard(
         e: React.BaseSyntheticEvent,
         index: number
     ) {
         if ('key' in e && e.key === 'Escape') {
-            setEditingLane(null)
+            setEditingCard(null)
         } else if (e.type === 'click') {
-            setEditingLane(editingLane === index ? null : index)
+            setEditingCard(editingCard === index ? null : index)
         }
     }
 
-    async function handleEditLaneName(
+    async function handleEditCardName(
         e: React.BaseSyntheticEvent,
-        id: string,
-        currName: string
+        laneId: string,
+        cardId: string,
+        currName: string,
+        currDescr: string
     ) {
         e.preventDefault()
 
-        const newName = e.target['lane-name'].value
-        if (newName === currName) {
-            setEditingLane(null)
+        const newName = e.target['card-name'].value
+        const newDescr = e.target['card-descr'].value
+        if (newName === currName && newDescr === currDescr) {
+            setEditingCard(null)
         } else if (newName.trim() === '') {
-            alert('Lane must have a name.')
+            alert('Card must have a name.')
         } else {
             try {
-                await postLaneName(data?.id, id, newName)
+                await postCardText(data?.id, laneId, cardId, {
+                    cardName: newName,
+                    cardDescr: newDescr,
+                })
                 setStale(true)
-                setEditingLane(null)
+                setEditingCard(null)
             } catch {
-                console.error('Failed to update lane name in DB.')
+                console.error('Failed to update card name in DB.')
             }
         }
     }
 
-    function postLaneName(
+    function postCardText(
         boardId: string | undefined,
         laneId: string,
-        laneName: string
+        cardId: string,
+        cardData: { cardName?: string; cardDescr?: string }
     ): Promise<Response> {
         return new Promise(async (resolve, reject) => {
             const response = await fetch(
-                `http://localhost:5000/boards/${boardId}/lanes/${laneId}`,
+                `http://localhost:5000/boards/${boardId}/lanes/${laneId}/cards/${cardId}`,
                 {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ laneName: laneName }),
+                    body: JSON.stringify(cardData),
                 }
             )
 
@@ -63,9 +70,10 @@ function useLane(data: BoardType | null, setStale: Function) {
         })
     }
 
-    async function handleMoveLane(
+    async function handleMoveCard(
         e: React.BaseSyntheticEvent,
-        id: string,
+        laneId: string,
+        cardId: string,
         type: string
     ) {
         let sequenceShift
@@ -79,7 +87,7 @@ function useLane(data: BoardType | null, setStale: Function) {
         }
 
         const response = await fetch(
-            `http://localhost:5000/boards/${data?.id}/lanes/${id}`,
+            `http://localhost:5000/boards/${data?.id}/lanes/${laneId}/cards/${cardId}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -92,15 +100,19 @@ function useLane(data: BoardType | null, setStale: Function) {
         if (response.ok) {
             setStale(true)
         } else {
-            console.error('Failed to move lane in DB.')
+            console.error('Failed to move card in DB.')
         }
     }
 
-    async function handleDeleteLane(e: React.BaseSyntheticEvent, id: string) {
-        const msg = 'Are you sure you want to delete this lane?'
+    async function handleDeleteCard(
+        e: React.BaseSyntheticEvent,
+        laneId: string,
+        cardId: string
+    ) {
+        const msg = 'Are you sure you want to delete this card?'
         if (confirm(msg)) {
             const response = await fetch(
-                `http://localhost:5000/boards/${data?.id}/lanes/${id}`,
+                `http://localhost:5000/boards/${data?.id}/lanes/${laneId}/cards/${cardId}`,
                 {
                     method: 'DELETE',
                 }
@@ -109,18 +121,18 @@ function useLane(data: BoardType | null, setStale: Function) {
             if (response.ok) {
                 setStale(true)
             } else {
-                console.error('Failed to delete lane from DB.')
+                console.error('Failed to delete card from DB.')
             }
         }
     }
 
     return {
-        editing: editingLane,
-        onToggleEditing: handleToggleEditingLane,
-        onEditLaneName: handleEditLaneName,
-        onMoveLane: handleMoveLane,
-        onDeleteLane: handleDeleteLane,
+        editing: editingCard,
+        onToggleEditing: handleToggleEditingCard,
+        onEditCardName: handleEditCardName,
+        onMoveCard: handleMoveCard,
+        onDeleteCard: handleDeleteCard,
     }
 }
 
-export default useLane
+export default useCard

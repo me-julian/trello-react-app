@@ -1,4 +1,9 @@
-import type { AddCardHandlerProps, LaneHandlerProps, LaneType } from './types'
+import type {
+    AddCardHandlerProps,
+    CardHandlerProps,
+    LaneHandlerProps,
+    LaneType,
+} from './types'
 import Cards from './Cards'
 import { DeleteBtn, EditBtn, MoveBtn } from './buttons'
 import { useTemporaryValue } from './hooks'
@@ -10,6 +15,7 @@ interface Props {
     lane: LaneType
     handlers: LaneHandlerProps
     addCardHandlers: AddCardHandlerProps
+    cardHandlers: CardHandlerProps
 }
 
 const Lane = ({
@@ -25,6 +31,7 @@ const Lane = ({
         onDeleteLane,
     },
     addCardHandlers,
+    cardHandlers,
 }: Props) => {
     const [tempName, setTempName] = useTemporaryValue(laneName, editing)
 
@@ -70,7 +77,13 @@ const Lane = ({
                 )}
             </div>
 
-            <Cards cards={cards} addCardHandlers={addCardHandlers} />
+            <Cards
+                cards={cards}
+                leftEnd={leftEnd}
+                rightEnd={rightEnd}
+                addCardHandlers={addCardHandlers}
+                cardHandlers={cardHandlers}
+            />
         </div>
     )
 }

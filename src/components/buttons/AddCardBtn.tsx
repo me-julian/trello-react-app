@@ -1,26 +1,30 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { AddCardHandlerProps } from '../types'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRef } from 'react'
 import { useTemporaryValue } from '../hooks'
 import { CSSTransition } from 'react-transition-group'
 
 interface Props {
-    handlers: {
-        adding: boolean
-        onToggleAdding: (e: React.BaseSyntheticEvent) => void
-        onSubmit: (e: React.BaseSyntheticEvent) => void
-    }
+    handlers: AddCardHandlerProps
 }
 
 const AddNewBtn = ({
     handlers: { adding, onToggleAdding, onSubmit },
 }: Props) => {
+    const [tempName, setTempName] = useTemporaryValue('', adding)
+    const [tempDescr, setTempDescr] = useTemporaryValue('', adding)
+
     const formRef = useRef(null)
 
-    const [tempName, setTempName] = useTemporaryValue('', adding)
-
     return (
-        <div id="add-lane-btn" className="add-new round">
+        <div className="add-new round">
+            <FontAwesomeIcon
+                className={adding ? 'turn' : ''}
+                icon={faPlus}
+                size="sm"
+                onClick={onToggleAdding}
+            />
             <CSSTransition
                 nodeRef={formRef}
                 in={adding}
@@ -35,22 +39,25 @@ const AddNewBtn = ({
                 >
                     <label>
                         <input
-                            name="lane-name"
-                            placeholder="Name your lane"
+                            name="card-name"
+                            placeholder="Name your card"
                             value={tempName}
                             type="text"
                             autoFocus
                             onChange={(e) => setTempName(e.target.value)}
                         />
                     </label>
+                    <label>
+                        <input
+                            name="card-descr"
+                            placeholder="Add a card description"
+                            value={tempDescr}
+                            type="text"
+                            onChange={(e) => setTempDescr(e.target.value)}
+                        />
+                    </label>
                 </form>
             </CSSTransition>
-            <FontAwesomeIcon
-                className={adding ? 'turn' : ''}
-                icon={faPlus}
-                size="sm"
-                onClick={onToggleAdding}
-            />
         </div>
     )
 }

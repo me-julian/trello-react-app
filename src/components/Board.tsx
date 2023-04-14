@@ -2,11 +2,12 @@ import {
     AddCardHandlerProps,
     AddLaneHandlerProps,
     BoardHandlerProps,
+    CardHandlerProps,
     LaneHandlerProps,
     LaneType,
 } from './types'
 import Lanes from './Lanes'
-import { AddNewBtn } from './buttons'
+import { AddLaneBtn } from './buttons'
 import { useTemporaryValue } from './hooks'
 
 interface Props {
@@ -17,6 +18,7 @@ interface Props {
     addLaneHandlers: AddLaneHandlerProps
     addCardHandlers: AddCardHandlerProps
     laneHandlers: LaneHandlerProps
+    cardHandlers: CardHandlerProps
 }
 
 function Board({
@@ -27,6 +29,7 @@ function Board({
     addLaneHandlers,
     addCardHandlers,
     laneHandlers,
+    cardHandlers,
 }: Props) {
     const [tempName, setTempName] = useTemporaryValue(boardName, editing)
 
@@ -56,8 +59,9 @@ function Board({
                     lanes={lanes}
                     laneHandlers={laneHandlers}
                     addCardHandlers={addCardHandlers}
+                    cardHandlers={cardHandlers}
                 />
-                <AddNewBtn handlers={addLaneHandlers} />
+                <AddLaneBtn handlers={addLaneHandlers} />
             </main>
         </>
     )

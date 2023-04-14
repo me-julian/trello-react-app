@@ -7,6 +7,7 @@ import {
     useLane,
     useLaneAdder,
     useCardAdder,
+    useCard,
 } from './components/hooks'
 
 function App() {
@@ -14,12 +15,13 @@ function App() {
 
     const boardHandlers = useBoard(data, setData)
 
-    // Adding multiple lanes in a row bugged
     const addLaneHandlers = useLaneAdder(data, setStale)
 
     const addCardHandlers = useCardAdder(data, setStale)
 
     const laneHandlers = useLane(data, setStale)
+
+    const cardHandlers = useCard(data, setStale)
 
     if (!data) {
         return <h1>Loading...</h1>
@@ -40,6 +42,7 @@ function App() {
                 addLaneHandlers={addLaneHandlers}
                 addCardHandlers={addCardHandlers}
                 laneHandlers={laneHandlers}
+                cardHandlers={cardHandlers}
             />
         </>
     )

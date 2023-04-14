@@ -5,3 +5,4 @@ export type { default as BoardHandlerProps } from './handlerProps/BoardHandlerPr
 export type { default as AddLaneHandlerProps } from './handlerProps/AddLaneHandlerProps'
 export type { default as AddCardHandlerProps } from './handlerProps/AddCardHandlerProps'
 export type { default as LaneHandlerProps } from './handlerProps/LaneHandlerProps'
+export type { default as CardHandlerProps } from './handlerProps/CardHandlerProps'
