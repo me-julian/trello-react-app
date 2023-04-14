@@ -7,13 +7,13 @@ interface Props {
     laneId: string
     topEnd: boolean
     bottomEnd: boolean
-    leftEnd: boolean
-    rightEnd: boolean
+    leftEnd: null | string
+    rightEnd: null | string
     handlers: CardHandlerProps
 }
 
 function Card({
-    card: { id, cardName, cardDescr, sequence },
+    card: { id, cardName, cardDescr },
     laneId,
     topEnd,
     bottomEnd,
@@ -43,8 +43,8 @@ function Card({
             <div className="editing-buttons">
                 <MoveBtn
                     iconType={'left'}
-                    ids={{ laneId: laneId, cardId: id }}
-                    active={leftEnd}
+                    ids={{ laneId: laneId, cardId: id, leftLaneId: leftEnd }}
+                    active={!leftEnd}
                     onClick={onMoveCard}
                 />
                 <MoveBtn
@@ -68,8 +68,8 @@ function Card({
                 />
                 <MoveBtn
                     iconType={'right'}
-                    ids={{ laneId: laneId, cardId: id }}
-                    active={rightEnd}
+                    ids={{ laneId: laneId, cardId: id, rightLaneId: rightEnd }}
+                    active={!rightEnd}
                     onClick={onMoveCard}
                 />
             </div>

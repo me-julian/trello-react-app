@@ -4,8 +4,8 @@ import { AddCardBtn } from './buttons'
 
 interface Props {
     cards: Array<CardType>
-    leftEnd: boolean
-    rightEnd: boolean
+    leftEnd: null | string
+    rightEnd: null | string
     laneId: string
     addCardHandlers: AddCardHandlerProps
     cardHandlers: CardHandlerProps

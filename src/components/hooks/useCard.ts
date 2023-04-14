@@ -68,15 +68,27 @@ function useCard(data: BoardType | null, setStale: Function) {
 
     async function handleMoveCard(
         e: React.BaseSyntheticEvent,
-        ids: { laneId: string; cardId: string },
+        ids: {
+            laneId: string
+            cardId: string
+            leftLaneId?: string | undefined
+            rightLaneId?: string | undefined
+        },
         type: string
     ) {
         console.log('Move card')
         switch (type) {
             case 'left':
-            // moveCardToLane(data?.id, ids.laneId, ids.cardId, -1)
+                moveCardToLane(data?.id, ids.laneId, ids.cardId, ids.leftLaneId)
+                break
             case 'right':
-            // moveCardToLane(data?.id, ids.laneId, ids.cardId, 1)
+                moveCardToLane(
+                    data?.id,
+                    ids.laneId,
+                    ids.cardId,
+                    ids.rightLaneId
+                )
+                break
             case 'up':
                 moveCardInLane(data?.id, ids.laneId, ids.cardId, -1)
                 break
@@ -113,8 +125,21 @@ function useCard(data: BoardType | null, setStale: Function) {
         boardId: string | undefined,
         laneId: string,
         cardId: string,
-        sequenceShift: number
-    ) {}
+        destinationLaneId: string | undefined
+    ) {
+        const response = await fetch(
+            `http://localhost:5000/boards/${boardId}/lanes/${laneId}/cards/${cardId}/move-to-lane/${destinationLaneId}`,
+            {
+                method: 'PATCH',
+            }
+        )
+
+        if (response.ok) {
+            setStale(true)
+        } else {
+            console.error('Failed to move card in DB.')
+        }
+    }
 
     async function handleDeleteCard(
         e: React.BaseSyntheticEvent,

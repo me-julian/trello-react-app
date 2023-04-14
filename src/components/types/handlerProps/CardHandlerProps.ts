@@ -9,7 +9,12 @@ type CardHandlerProps = {
     ) => void
     onMoveCard: (
         e: React.BaseSyntheticEvent,
-        ids: { laneId: string; cardId: string },
+        ids: {
+            laneId: string
+            cardId: string
+            leftLaneId?: string | undefined
+            rightLaneId?: string | undefined
+        },
         type: string
     ) => void
     onDeleteCard: (

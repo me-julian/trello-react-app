@@ -9,8 +9,8 @@ import { DeleteBtn, EditBtn, MoveBtn } from './buttons'
 import { useTemporaryValue } from './hooks'
 
 interface Props {
-    leftEnd: boolean
-    rightEnd: boolean
+    leftEnd: null | string
+    rightEnd: null | string
     lane: LaneType
     handlers: LaneHandlerProps
     addCardHandlers: AddCardHandlerProps
@@ -20,7 +20,7 @@ interface Props {
 const Lane = ({
     leftEnd,
     rightEnd,
-    lane: { id, laneName, cards, sequence },
+    lane: { id, laneName, cards },
     handlers: {
         editing,
         onToggleEditing,
@@ -39,7 +39,7 @@ const Lane = ({
                 <MoveBtn
                     iconType="left"
                     ids={{ laneId: id }}
-                    active={leftEnd}
+                    active={!leftEnd}
                     onClick={onMoveLane}
                 />
                 <div>
@@ -49,7 +49,7 @@ const Lane = ({
                 <MoveBtn
                     iconType="right"
                     ids={{ laneId: id }}
-                    active={rightEnd}
+                    active={!rightEnd}
                     onClick={onMoveLane}
                 />
             </div>

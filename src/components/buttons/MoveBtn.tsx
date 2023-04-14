@@ -9,7 +9,12 @@ import {
 interface Props {
     iconType: 'up' | 'down' | 'left' | 'right'
     onClick: Function
-    ids: { laneId: string; cardId?: string }
+    ids: {
+        laneId: string
+        cardId?: string
+        rightLaneId?: string | null
+        leftLaneId?: string | null
+    }
     active: boolean
 }
 
