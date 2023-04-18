@@ -40,15 +40,6 @@ header > form input {
     padding: 0px;
 }
 
-header > .counter {
-    padding: 0.15rem 1rem;
-    border-radius: 15px;
-    border: 2px solid var(--bg-med);
-    background-color: var(--bg-dark);
-    font-size: 30px;
-    font-weight: 600;
-}
-
 main {
     min-height: calc(100vh - 75px);
 }
@@ -163,7 +154,8 @@ input {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    padding: 0.5rem 1rem 0.25rem 1rem;
+    align-items: center;
+    padding: 0.25rem 1rem;
     line-height: 0;
 }
 
@@ -177,6 +169,11 @@ input {
 
 .editing-buttons > div > svg {
     padding: 0 0.5rem;
+}
+
+.editing-buttons > div {
+    display: flex;
+    align-items: center;
 }
 
 .lane {
@@ -208,6 +205,7 @@ input {
 }
 
 .card > .editing-buttons {
+    padding: 0.5rem 1rem 0.25rem 1rem;
     font-size: 14px;
 }
 
@@ -230,4 +228,28 @@ input {
     font-size: 14px;
     padding: 0.25rem 0.75rem 0.5rem 0.75rem;
     margin-left: 0.5rem;
+}
+
+/* Counters */
+
+.counter {
+    border-radius: 15px;
+    background-color: var(--bg-dark);
+    font-weight: 600;
+}
+
+header > .counter {
+    padding: 0.15rem 1rem;
+    border-radius: 15px;
+    border: 2px solid var(--bg-med);
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.editing-buttons .counter {
+    padding: 0.1rem 0.5rem;
+    border-radius: 7px;
+    border: 1px solid var(--bg-med);
+    font-weight: 600;
+    line-height: normal;
 }

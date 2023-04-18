@@ -7,6 +7,7 @@ import type {
 import Cards from './Cards'
 import { DeleteBtn, EditBtn, MoveBtn } from './buttons'
 import { useTemporaryValue } from './hooks'
+import Counter from './Counter'
 
 interface Props {
     leftEnd: null | string
@@ -44,6 +45,7 @@ const Lane = ({
                 />
                 <div>
                     <EditBtn onClick={onToggleEditing} id={id} />
+                    <Counter countedObj={'Cards'} count={cards.length} />
                     <DeleteBtn onClick={onDeleteLane} ids={{ laneId: id }} />
                 </div>
                 <MoveBtn

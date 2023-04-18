@@ -54,7 +54,7 @@ function Board({
                     </form>
                 )}
                 {!editing && <h1 onClick={onToggleEditing}>{boardName}</h1>}
-                <Counter count={lanes.length} />
+                <Counter countedObj={'Lanes'} count={lanes.length} />
             </header>
             <main id="board" data-db-id={id}>
                 <Lanes
