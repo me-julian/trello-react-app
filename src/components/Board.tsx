@@ -7,6 +7,7 @@ import {
     LaneType,
 } from './types'
 import Lanes from './Lanes'
+import Counter from './Counter'
 import { AddLaneBtn } from './buttons'
 import { useTemporaryValue } from './hooks'
 
@@ -53,6 +54,7 @@ function Board({
                     </form>
                 )}
                 {!editing && <h1 onClick={onToggleEditing}>{boardName}</h1>}
+                <Counter count={lanes.length} />
             </header>
             <main id="board" data-db-id={id}>
                 <Lanes
