@@ -16,8 +16,6 @@ export default function useLoadBoard(): {
     const [error, setError] = useState<null | Error>(null)
 
     useEffect(() => {
-        console.log('Use effect')
-
         const abortController = new AbortController()
 
         async function tryGet(url: URL, options: Object) {
@@ -49,8 +47,6 @@ export default function useLoadBoard(): {
         }
 
         async function postAndGet() {
-            console.log('Posting new')
-
             try {
                 const createDefault = await fetch(
                     new URL('http://localhost:5000/boards'),
@@ -68,7 +64,6 @@ export default function useLoadBoard(): {
 
                 if (createDefault.ok) {
                     const data = await createDefault.json()
-                    console.log('Getting posted')
                     tryGet(
                         new URL(`http://localhost:5000/boards/${data.boardId}`),
                         {

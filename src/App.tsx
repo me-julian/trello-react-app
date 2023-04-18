@@ -31,7 +31,6 @@ function App() {
         return <h1>Error</h1>
     }
 
-    console.log('render board')
     return (
         <>
             <Board
