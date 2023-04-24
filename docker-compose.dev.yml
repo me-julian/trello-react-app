@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  client:
+    build:
+      dockerfile: Dockerfile.dev
+      args:
+        - NODE_ENV=development
+    image: julianmedwards/react-trello-app:dev
+    environment:
+      CHOKIDAR_USEPOLLING: 'true'
+    ports:
+      - 3001:5173
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules/

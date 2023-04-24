@@ -1,0 +1,16 @@
+ARG NODE_VERSION
+
+FROM node:$NODE_VERSION
+
+ARG NODE_ENV
+ENV NODE_ENV=$NODE_ENV
+
+WORKDIR /usr/src/app
+
+COPY package.json ./
+
+RUN npm install
+
+COPY dist .
+
+EXPOSE 4173

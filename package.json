@@ -4,15 +4,17 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "vite",
-        "build": "tsc && vite build",
-        "preview": "vite preview"
+        "dev": "vite --host",
+        "build": "tsc && vite build --base=./",
+        "preview": "vite preview",
+        "docker-build-dev": "docker compose -f docker-compose.yml -f docker-compose.dev.yml build",
+        "docker-run-dev": "docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d",
+        "docker-build": "tsc && vite build --base=./ && docker compose build && docker image push julianmedwards/react-trello-app:prod"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.4.0",
         "@fortawesome/free-solid-svg-icons": "^6.4.0",
         "@fortawesome/react-fontawesome": "^0.2.0",
-        "@types/react-transition-group": "^4.4.5",
         "react": "^18.2.0",
         "react-cookie": "^4.1.1",
         "react-dom": "^18.2.0",
@@ -21,6 +23,7 @@
     "devDependencies": {
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.11",
+        "@types/react-transition-group": "^4.4.5",
         "@vitejs/plugin-react": "^3.1.0",
         "typescript": "^4.9.3",
         "vite": "^4.2.0"
