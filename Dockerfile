@@ -1,4 +1,5 @@
 ARG NODE_VERSION
+ARG PORT
 
 FROM node:$NODE_VERSION
 
@@ -11,6 +12,9 @@ COPY package.json ./
 
 RUN npm install
 
-COPY dist .
+COPY dist dist/
+COPY index.js .
 
-EXPOSE 4173
+EXPOSE $PORT
+
+CMD [ "node", "index.js" ]
