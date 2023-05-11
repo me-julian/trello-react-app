@@ -1,5 +1,6 @@
 import { BoardType } from '../types'
 import { useState } from 'react'
+import config from '../../../config'
 
 function useLaneAdder(
     boardData: BoardType | null,
@@ -47,7 +48,7 @@ function useLaneAdder(
     ): Promise<Response> {
         return new Promise(async (resolve, reject) => {
             const response = await fetch(
-                `http://localhost:5000/boards/${boardId}/lanes`,
+                `http://${config.apiPort}:${config.apiPort}/boards/${boardId}/lanes`,
                 {
                     method: 'POST',
                     headers: {

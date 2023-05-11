@@ -3,10 +3,23 @@
 import express from 'express'
 
 const app = express()
-const PORT = process.env.PORT || 3000
+
+import config from './config'
 
 app.use(express.static('dist'))
 
-app.listen(PORT, () => {
-    console.log('Express APP listening on port:', PORT)
-})
+if (process.env.NODE_ENV === 'production') {
+    if (config.apiIP === '' || !config.apiIP) {
+        console.error('API server IP not set!')
+    } else {
+        startServer()
+    }
+} else {
+    startServer()
+}
+
+function startServer() {
+    app.listen(config.port, () => {
+        console.log('Express APP listening on port:', config.port)
+    })
+}

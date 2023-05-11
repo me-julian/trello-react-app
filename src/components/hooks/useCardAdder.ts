@@ -1,5 +1,6 @@
 import { BoardType } from '../types'
 import { useState } from 'react'
+import config from '../../../config'
 
 function useCardAdder(
     boardData: BoardType | null,
@@ -52,7 +53,7 @@ function useCardAdder(
     ): Promise<Response> {
         return new Promise(async (resolve, reject) => {
             const response = await fetch(
-                `http://localhost:5000/boards/${boardId}/lanes/${laneId}/cards`,
+                `http://${config.apiPort}:${config.apiPort}/boards/${boardId}/lanes/${laneId}/cards`,
                 {
                     method: 'POST',
                     headers: {
