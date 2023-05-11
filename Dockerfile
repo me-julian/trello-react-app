@@ -20,6 +20,6 @@ RUN npm install
 
 COPY dist dist/
 COPY index.js .
-COPY config.js .
+COPY config.ts .
 
 CMD [ "node", "index.js" ]
