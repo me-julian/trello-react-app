@@ -43,7 +43,7 @@ function useLane(data: BoardType | null, stale: boolean, setStale: Function) {
     ): Promise<Response> {
         return new Promise(async (resolve, reject) => {
             const response = await fetch(
-                `http://${config.apiPort}:${config.apiPort}/boards/${boardId}/lanes/${laneId}`,
+                `https://${config.apiPort}:${config.apiPort}/boards/${boardId}/lanes/${laneId}`,
                 {
                     method: 'PATCH',
                     headers: {
@@ -77,7 +77,7 @@ function useLane(data: BoardType | null, stale: boolean, setStale: Function) {
         }
 
         const response = await fetch(
-            `http://${config.apiPort}:${config.apiPort}/boards/${
+            `https://${config.apiPort}:${config.apiPort}/boards/${
                 data!.id
             }/lanes/${ids.laneId}`,
             {
@@ -121,7 +121,7 @@ function useLane(data: BoardType | null, stale: boolean, setStale: Function) {
 
     async function deleteLaneRequest(boardId: string, laneId: string) {
         const response = await fetch(
-            `http://${config.apiPort}:${config.apiPort}/boards/${boardId}/lanes/${laneId}`,
+            `https://${config.apiPort}:${config.apiPort}/boards/${boardId}/lanes/${laneId}`,
             {
                 method: 'DELETE',
             }
@@ -165,7 +165,7 @@ function useLane(data: BoardType | null, stale: boolean, setStale: Function) {
         destinationLaneId: string
     ) {
         const response = await fetch(
-            `http://${config.apiPort}:${config.apiPort}/boards/${boardId}/lanes/${laneId}/delete-and-transfer/${destinationLaneId}`,
+            `https://${config.apiPort}:${config.apiPort}/boards/${boardId}/lanes/${laneId}/delete-and-transfer/${destinationLaneId}`,
             {
                 method: 'PATCH',
             }

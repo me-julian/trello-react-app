@@ -42,7 +42,7 @@ function useBoard(data: BoardType | null, setData: Function) {
     ): Promise<Response> {
         return new Promise(async (resolve, reject) => {
             const response = await fetch(
-                `http://${config.apiPort}:${config.apiPort}/boards/${boardId}`,
+                `https://${config.apiPort}:${config.apiPort}/boards/${boardId}`,
                 {
                     method: 'PATCH',
                     headers: {

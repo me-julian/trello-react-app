@@ -51,7 +51,7 @@ export default function useLoadBoard(): {
             try {
                 const createDefault = await fetch(
                     new URL(
-                        `http://${config.apiPort}:${config.apiPort}/boards`
+                        `https://${config.apiPort}:${config.apiPort}/boards`
                     ),
                     {
                         method: 'POST',
@@ -69,7 +69,7 @@ export default function useLoadBoard(): {
                     const data = await createDefault.json()
                     tryGet(
                         new URL(
-                            `http://${config.apiPort}:${config.apiPort}/boards/${data.boardId}`
+                            `https://${config.apiPort}:${config.apiPort}/boards/${data.boardId}`
                         ),
                         {
                             options: { method: 'GET' },
@@ -95,7 +95,7 @@ export default function useLoadBoard(): {
 
             tryGet(
                 new URL(
-                    `http://${config.apiPort}:${config.apiPort}/boards/${cookies.lastBoardId}`
+                    `https://${config.apiPort}:${config.apiPort}/boards/${cookies.lastBoardId}`
                 ),
                 {
                     options: { method: 'GET' },
