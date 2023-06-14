@@ -9,8 +9,8 @@ import config from './config'
 app.use(express.static('dist'))
 
 if (process.env.NODE_ENV === 'production') {
-    if (config.apiIP === '' || !config.apiIP) {
-        console.error('API server IP not set!')
+    if (config.apiAddress === '' || !config.apiAddress) {
+        console.error('API server address not set!')
     } else {
         startServer()
     }
