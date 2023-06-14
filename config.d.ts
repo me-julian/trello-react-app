@@ -1,7 +1,7 @@
 type configParams = {
     clientPort: string | number
     apiPort: string | number
-    apiIP: string
+    apiAddress: string
 }
 
 declare const config: configParams

@@ -48,7 +48,7 @@ function useLaneAdder(
     ): Promise<Response> {
         return new Promise(async (resolve, reject) => {
             const response = await fetch(
-                `https://${config.apiPort}:${config.apiPort}/boards/${boardId}/lanes`,
+                `${config.apiAddress}:${config.apiPort}/boards/${boardId}/lanes`,
                 {
                     method: 'POST',
                     headers: {

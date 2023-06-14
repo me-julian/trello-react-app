@@ -53,7 +53,7 @@ function useCardAdder(
     ): Promise<Response> {
         return new Promise(async (resolve, reject) => {
             const response = await fetch(
-                `https://${config.apiPort}:${config.apiPort}/boards/${boardId}/lanes/${laneId}/cards`,
+                `${config.apiAddress}:${config.apiPort}/boards/${boardId}/lanes/${laneId}/cards`,
                 {
                     method: 'POST',
                     headers: {

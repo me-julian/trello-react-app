@@ -50,9 +50,7 @@ export default function useLoadBoard(): {
         async function postAndGet() {
             try {
                 const createDefault = await fetch(
-                    new URL(
-                        `https://${config.apiPort}:${config.apiPort}/boards`
-                    ),
+                    new URL(`${config.apiAddress}:${config.apiPort}/boards`),
                     {
                         method: 'POST',
                         headers: {
@@ -69,7 +67,7 @@ export default function useLoadBoard(): {
                     const data = await createDefault.json()
                     tryGet(
                         new URL(
-                            `https://${config.apiPort}:${config.apiPort}/boards/${data.boardId}`
+                            `${config.apiAddress}:${config.apiPort}/boards/${data.boardId}`
                         ),
                         {
                             options: { method: 'GET' },
