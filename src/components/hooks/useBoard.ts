@@ -1,6 +1,5 @@
 import { BoardType } from '../types'
 import { useState } from 'react'
-import config from '../../../config'
 
 function useBoard(data: BoardType | null, setData: Function) {
     const [editingBoard, setEditingBoard] = useState(false)
@@ -42,7 +41,7 @@ function useBoard(data: BoardType | null, setData: Function) {
     ): Promise<Response> {
         return new Promise(async (resolve, reject) => {
             const response = await fetch(
-                `${config.apiAddress}:${config.apiPort}/boards/${boardId}`,
+                `${__API_ADDRESS__}:${__API_PORT__}/boards/${boardId}`,
                 {
                     method: 'PATCH',
                     headers: {

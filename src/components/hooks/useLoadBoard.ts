@@ -1,7 +1,6 @@
 import { BoardType } from '../types'
 import { useState, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
-import config from '../../../config'
 
 export default function useLoadBoard(): {
     data: BoardType | null
@@ -50,7 +49,7 @@ export default function useLoadBoard(): {
         async function postAndGet() {
             try {
                 const createDefault = await fetch(
-                    new URL(`${config.apiAddress}:${config.apiPort}/boards`),
+                    new URL(`${__API_ADDRESS__}:${__API_PORT__}/boards`),
                     {
                         method: 'POST',
                         headers: {
@@ -67,7 +66,7 @@ export default function useLoadBoard(): {
                     const data = await createDefault.json()
                     tryGet(
                         new URL(
-                            `${config.apiAddress}:${config.apiPort}/boards/${data.boardId}`
+                            `${__API_ADDRESS__}:${__API_PORT__}/boards/${data.boardId}`
                         ),
                         {
                             options: { method: 'GET' },
@@ -93,7 +92,7 @@ export default function useLoadBoard(): {
 
             tryGet(
                 new URL(
-                    `https://${config.apiPort}:${config.apiPort}/boards/${cookies.lastBoardId}`
+                    `${__API_ADDRESS__}:${__API_PORT__}/boards/${cookies.lastBoardId}`
                 ),
                 {
                     options: { method: 'GET' },

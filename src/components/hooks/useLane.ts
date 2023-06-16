@@ -1,6 +1,5 @@
 import { BoardType, LaneType } from '../types'
 import { useState } from 'react'
-import config from '../../../config'
 
 function useLane(data: BoardType | null, stale: boolean, setStale: Function) {
     const [editingLane, setEditingLane] = useState<null | string>(null)
@@ -43,7 +42,7 @@ function useLane(data: BoardType | null, stale: boolean, setStale: Function) {
     ): Promise<Response> {
         return new Promise(async (resolve, reject) => {
             const response = await fetch(
-                `${config.apiAddress}:${config.apiPort}/boards/${boardId}/lanes/${laneId}`,
+                `${__API_ADDRESS__}:${__API_PORT__}/boards/${boardId}/lanes/${laneId}`,
                 {
                     method: 'PATCH',
                     headers: {
@@ -77,7 +76,7 @@ function useLane(data: BoardType | null, stale: boolean, setStale: Function) {
         }
 
         const response = await fetch(
-            `${config.apiAddress}:${config.apiPort}/boards/${data!.id}/lanes/${
+            `${__API_ADDRESS__}:${__API_PORT__}/boards/${data!.id}/lanes/${
                 ids.laneId
             }`,
             {
@@ -121,7 +120,7 @@ function useLane(data: BoardType | null, stale: boolean, setStale: Function) {
 
     async function deleteLaneRequest(boardId: string, laneId: string) {
         const response = await fetch(
-            `${config.apiAddress}:${config.apiPort}/boards/${boardId}/lanes/${laneId}`,
+            `${__API_ADDRESS__}:${__API_PORT__}/boards/${boardId}/lanes/${laneId}`,
             {
                 method: 'DELETE',
             }
@@ -165,7 +164,7 @@ function useLane(data: BoardType | null, stale: boolean, setStale: Function) {
         destinationLaneId: string
     ) {
         const response = await fetch(
-            `${config.apiAddress}:${config.apiPort}/boards/${boardId}/lanes/${laneId}/delete-and-transfer/${destinationLaneId}`,
+            `${__API_ADDRESS__}:${__API_PORT__}/boards/${boardId}/lanes/${laneId}/delete-and-transfer/${destinationLaneId}`,
             {
                 method: 'PATCH',
             }

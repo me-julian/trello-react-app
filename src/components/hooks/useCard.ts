@@ -1,6 +1,5 @@
 import { BoardType } from '../types'
 import { useState } from 'react'
-import config from '../../../config'
 
 function useCard(data: BoardType | null, stale: boolean, setStale: Function) {
     const [editingCard, setEditingCard] = useState<null | string>(null)
@@ -49,7 +48,7 @@ function useCard(data: BoardType | null, stale: boolean, setStale: Function) {
     ): Promise<Response> {
         return new Promise(async (resolve, reject) => {
             const response = await fetch(
-                `${config.apiAddress}:${config.apiPort}/boards/${boardId}/lanes/${laneId}/cards/${cardId}`,
+                `${__API_ADDRESS__}:${__API_PORT__}/boards/${boardId}/lanes/${laneId}/cards/${cardId}`,
                 {
                     method: 'PATCH',
                     headers: {
@@ -104,7 +103,7 @@ function useCard(data: BoardType | null, stale: boolean, setStale: Function) {
         sequenceShift: number
     ) {
         const response = await fetch(
-            `${config.apiAddress}:${config.apiPort}/boards/${boardId}/lanes/${laneId}/cards/${cardId}`,
+            `${__API_ADDRESS__}:${__API_PORT__}/boards/${boardId}/lanes/${laneId}/cards/${cardId}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -128,7 +127,7 @@ function useCard(data: BoardType | null, stale: boolean, setStale: Function) {
         destinationLaneId: string | undefined
     ) {
         const response = await fetch(
-            `${config.apiAddress}:${config.apiPort}/boards/${boardId}/lanes/${laneId}/cards/${cardId}/move-to-lane/${destinationLaneId}`,
+            `${__API_ADDRESS__}:${__API_PORT__}/boards/${boardId}/lanes/${laneId}/cards/${cardId}/move-to-lane/${destinationLaneId}`,
             {
                 method: 'PATCH',
             }
@@ -148,7 +147,7 @@ function useCard(data: BoardType | null, stale: boolean, setStale: Function) {
         const msg = 'Are you sure you want to delete this card?'
         if (confirm(msg)) {
             const response = await fetch(
-                `${config.apiAddress}:${config.apiPort}/boards/${data?.id}/lanes/${ids.laneId}/cards/${ids.cardId}`,
+                `${__API_ADDRESS__}:${__API_PORT__}/boards/${data?.id}/lanes/${ids.laneId}/cards/${ids.cardId}`,
                 {
                     method: 'DELETE',
                 }
